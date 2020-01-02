@@ -1,4 +1,4 @@
-import { Component, OnInit , OnDestroy, ViewChild} from '@angular/core';
+import { Component, OnInit , OnDestroy, ViewChild, AfterViewInit} from '@angular/core';
 import { AccountService, User, Gym } from '../account.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { map, finalize } from 'rxjs/operators';
@@ -8,6 +8,8 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { ScanDialog } from '../scan-dialog/scan-dialog.component';
+
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: 'app-account',
@@ -20,6 +22,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   loadingBilling: boolean = false;
   selectedTab;
+  private _stripe: any;
+  private _elements: any;
+  private _card: any;
 
   constructor(
     private appService: AppService,

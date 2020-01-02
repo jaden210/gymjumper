@@ -8,6 +8,7 @@ import {
 import { AccountRoutingModule } from "./account-routing.module";
 import { MaterialModule } from "../material/material.module";
 import { AccountComponent } from "./account.component";
+import { BillingComponent } from "./account/billing/billing.component";
 import { FormsModule } from "@angular/forms";
 import { MomentModule } from "ngx-moment";
 import { MapDialogComponent } from "./map-dialog/map-dialog.component";
@@ -42,7 +43,8 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     DeleteAccountDialog,
     PrintComponent,
     PrintDialog,
-    ScanDialog
+    ScanDialog,
+    BillingComponent
   ],
   exports: [MaterialModule],
   entryComponents: [

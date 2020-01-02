@@ -110,18 +110,7 @@ mat-form-field {
   margin: auto;
 }
 
-.card {
-  display: flex;
-  width: calc(100% - 24px);
-  flex-direction: column;
-  align-items: center;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 3px 4px 1px rgba(0, 0, 0, 0.1);
-  margin: 12px;
-  padding: 24px;
-  box-sizing: border-box;
-}
+
 
 .f-image {
   height: 60px;
@@ -197,6 +186,34 @@ mat-form-field {
 }
 
 
+.card {
+  margin: 12px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  z-index: 1;
+  background-color: #ffffff;
+  padding: 16px;
+}
+  .card-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+    button {
+      margin: -4px;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      padding: 12px;
+    }
+      .form-row {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+      }
 
 .StripeElement {
   box-sizing: border-box;
@@ -223,4 +240,27 @@ mat-form-field {
 }
 img {
   height: 22px;
+}
+
+
+@media screen and (max-width: 785px) {
+  .StripeElement {
+    padding: 10px 4px !important;
+    width: calc(100vw - 56px) !important;
+  }
+  .form {
+    padding: 4px;
+  }
+    .item {
+      display: flex;
+      align-items: flex-start;
+      margin: 12px 0;
+    }
+
+  .mobile {
+    display: block !important;
+  }
+  .desktop {
+    display: none !important;
+  }
 }

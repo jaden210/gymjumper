@@ -33,7 +33,59 @@ exports.createStripeCustomer = functions.auth.user().onCreate(user => {
     });
 });
 
-exports.customerEnteredCC = functions.firestore
+// exports.customerEnteredCC = functions.firestore
+//   .document("user/{userId}")
+//   .onUpdate((change, context) => {
+//     let oldCustomer = change.before.data();
+//     let newCustomer = change.after.data();
+//     if (!oldCustomer.cardToken && newCustomer.cardToken) { // register the Customer
+//         stripe.customers
+//         .create({
+//             email: newCustomer.email,
+//             description: `new Customer: ${newCustomer.name}`,
+//             source : newCustomer.cardToken.id
+//         })
+//         .then(customer => {
+//           const days = moment().diff(moment(newCustomer.createdAt.toDate()), "days");
+//           stripe.subscriptions
+//             .create({
+//               customer: customer.id,
+//               trial_period_days: days < 0 ? 0 : days,
+//               items: [
+//                 { plan: "basic" } 
+//               ]
+//             })
+//             .then(
+//               subscription => {
+//                 admin
+//                   .firestore()
+//                   .doc(`team/${change.after.id}`)
+//                   .update({
+//                     stripeSubscriptionId: subscription.id,
+//                     stripePlanId: "small-teams"
+//                   });
+//                 console.log(
+//                   `customer ${customer.id} subscribed to small teams`
+//                 );
+//               },
+//               error => console.log(`error: ${error}`)
+//             );
+//         });
+//     } else if (oldT.cardToken !== newT.cardToken) {
+//       // updated CC
+//       stripe.customers
+//         .update(newT.stripeCustomerId, {
+//           source: newT.cardToken.id
+//         })
+//         .then(
+//           () => console.log(`customer card updated`),
+//           error => console.log(`error: ${error}`)
+//         );
+//     }
+//   });
+
+
+exports.newSubscription = functions.firestore
   .document("user/{userId}")
   .onUpdate((change, context) => {
     let oldCustomer = change.before.data();
@@ -52,30 +104,30 @@ exports.customerEnteredCC = functions.firestore
               customer: customer.id,
               trial_period_days: days < 0 ? 0 : days,
               items: [
-                { plan: "basic" } 
+                { plan: "pro-plan" }
               ]
             })
             .then(
               subscription => {
                 admin
                   .firestore()
-                  .doc(`team/${change.after.id}`)
+                  .doc(`user/${newCustomer.id}`)
                   .update({
                     stripeSubscriptionId: subscription.id,
-                    stripePlanId: "small-teams"
+                    stripePlanId: "pro-plan"
                   });
                 console.log(
-                  `customer ${customer.id} subscribed to small teams`
+                  `customer ${customer.id} subscribed to pro plan`
                 );
               },
               error => console.log(`error: ${error}`)
             );
         });
-    } else if (oldT.cardToken !== newT.cardToken) {
+    } else if (oldCustomer.cardToken !== newCustomer.cardToken) {
       // updated CC
       stripe.customers
-        .update(newT.stripeCustomerId, {
-          source: newT.cardToken.id
+        .update(newCustomer.stripeCustomerId, {
+          source: newCustomer.cardToken.id
         })
         .then(
           () => console.log(`customer card updated`),

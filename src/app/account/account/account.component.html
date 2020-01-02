@@ -33,41 +33,7 @@
     </mat-list>
   </mat-tab>
   <mat-tab label="Billing">
-    <div id="billing">
-      <ng-container *ngIf="!accountService.user.cardToken">
-        <div class="card">
-          <div class="free" *ngIf="accountService.trialDaysLeft > 0">You’re in a free trial period for {{accountService.trialDaysLeft}} more days. Payment can be entered any time, but is not required until your free trial is up. You’ll be charged based on your team size, on the one month anniversary of your account creation date according to our Customer Agreement which you agreed to when setting up your account. Feel free to review the <a routerLink="/customer-agreement">Customer Agreement</a> again. Based on your current team size, you will be charged ${{teamTier}} per month, and can cancel at any time. All payments are handled securely through Stripe.</div>
-          <div class="free" *ngIf="accountService.trialDaysLeft <= 0">You’re free trial has expired. Please enter payment information to access your account. You’ll be charged based on your team size, on the one month anniversary of your account creation date according to our Customer Agreement which you agreed to when setting up your account. Feel free to review the <a routerLink="/customer-agreement">Customer Agreement</a> again. Based on your current team size, you will be charged ${{teamTier}} per month, and can cancel at any time. All payments are handled securely through Stripe.</div>
-          <button mat-raised-button color="accent" style="color:#ffffff;align-self: flex-end" (click)="enterCardInfo()">ENTER PAYMENT</button>
-        </div>
-      </ng-container>
-      <ng-container *ngIf="accountService.user.cardToken">
-        <div class="card">
-          <div class="free">Thank you! Your card is on file and securely stored with Stripe for monthly billing. Click below to update or change your payment information, anytime.</div>
-          <button mat-raised-button color="accent" style="color:#ffffff;align-self: flex-end;" (click)="enterCardInfo()">UPDATE PAYMENT</button>
-        </div>
-      </ng-container>
-      <div class="s-row">
-        <div class="stripe-text">Payments are secured by </div>
-        <div class="f-image"><img id="f-img" src="/assets/stripeName.png"></div>
-      </div>
-      <div id="bh" class="card">
-        <div class="bh-row">
-          <div id="bh-title">Billing History</div>
-          <div class="flex"></div>
-          <button mat-stroked-button color="accent" (click)="getBillingHistory()">
-            last refreshed: {{accountService.user.stripeInvoicesRetrievedAt || 'never'}}
-            <mat-icon [ngClass]="{spin: loadingBilling}">refresh</mat-icon>
-          </button>
-        </div>
-        <div class="bh-row" *ngFor="let invoice of accountService.user.stripeInvoice?.data">
-          {{invoice.date}}
-        </div>
-        <div id="no-bh" *ngIf="!accountService.user.stripeInvoice?.data?.length">
-          <mat-icon>restore</mat-icon>No billing history
-        </div>
-      </div>
-    </div>
+    <billing></billing>
   </mat-tab>
   <mat-tab label="My Gym" *ngIf="accountService?.isGymOwner">
       <div class="column">

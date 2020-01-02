@@ -9,7 +9,6 @@ export const environment = {
     messagingSenderId: "988712624451"
   },
   stripe: {
-    publishable: "pk_live_r9CMgitgEmMOHbkAqL5QblcT",
-    secret: "sk_live_TQ9inG1nDFwQ3mnbA0nZc53G"
+    publishable: "pk_live_E3xj3zTROUC8hfFORjeO4keB00xBXADHCx"
   }
 };

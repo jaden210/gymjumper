@@ -1,56 +1,58 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const functions = require("firebase-functions");
+const moment = require("moment");
 const admin = require("firebase-admin");
 admin.initializeApp(functions.config().firebase);
 admin.firestore().settings({ timestampsInSnapshots: true });
-//const stripe = require("stripe")(functions.config().stripe.token);
-// When a user is created, register them with Stripe
-// exports.createStripeCustomer = functions.auth.user().onCreate(user => {
-//   return stripe.customers
-//     .create({
-//       email: user.email,
-//       description: "new Customer"
-//     })
-//     .then(customer => {
-//       return admin
-//         .firestore()
-//         .collection("team")
-//         .where("ownerId", "==", user.uid)
-//         .get()
-//         .then(querySnapshot => {
-//           querySnapshot.forEach(doc => {
-//             // should only be one, can't think of a better way
-//             return admin
-//               .firestore()
-//               .doc("team/" + doc.id)
-//               .update({ stripeCustomerId: customer.id });
-//           });
-//         })
-//         .catch(error => {
-//           return console.log("Error getting documents: ", error);
-//         });
-//     });
-// });
+const stripe = require("stripe")(functions.config().stripe.token);
+//When a user is created, register them with Stripe
+exports.createStripeCustomer = functions.auth.user().onCreate(user => {
+    return stripe.customers
+        .create({
+        email: user.email,
+        description: "new Customer"
+    })
+        .then(customer => {
+        return admin
+            .firestore()
+            .collection("team")
+            .where("ownerId", "==", user.uid)
+            .get()
+            .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+                // should only be one, can't think of a better way
+                return admin
+                    .firestore()
+                    .doc("team/" + doc.id)
+                    .update({ stripeCustomerId: customer.id });
+            });
+        })
+            .catch(error => {
+            return console.log("Error getting documents: ", error);
+        });
+    });
+});
 // exports.customerEnteredCC = functions.firestore
-//   .document("team/{teamId}")
+//   .document("user/{userId}")
 //   .onUpdate((change, context) => {
-//     let oldT = change.before.data();
-//     let newT = change.after.data();
-//     if (!oldT.cardToken && newT.cardToken) {
-//       // first time card enter
-//       stripe.customers
-//         .update(newT.stripeCustomerId, {
-//           source: newT.cardToken.id
+//     let oldCustomer = change.before.data();
+//     let newCustomer = change.after.data();
+//     if (!oldCustomer.cardToken && newCustomer.cardToken) { // register the Customer
+//         stripe.customers
+//         .create({
+//             email: newCustomer.email,
+//             description: `new Customer: ${newCustomer.name}`,
+//             source : newCustomer.cardToken.id
 //         })
 //         .then(customer => {
-//           const days = moment().diff(moment(newT.createdAt.toDate()), "days");
+//           const days = moment().diff(moment(newCustomer.createdAt.toDate()), "days");
 //           stripe.subscriptions
 //             .create({
 //               customer: customer.id,
 //               trial_period_days: days < 0 ? 0 : days,
 //               items: [
-//                 { plan: "small-teams" } // small teams
+//                 { plan: "basic" } 
 //               ]
 //             })
 //             .then(
@@ -81,6 +83,49 @@ admin.firestore().settings({ timestampsInSnapshots: true });
 //         );
 //     }
 //   });
+exports.newSubscription = functions.firestore
+    .document("user/{userId}")
+    .onUpdate((change, context) => {
+    let oldCustomer = change.before.data();
+    let newCustomer = change.after.data();
+    if (!oldCustomer.cardToken && newCustomer.cardToken) { // register the Customer
+        stripe.customers
+            .create({
+            email: newCustomer.email,
+            description: `new Customer: ${newCustomer.name}`,
+            source: newCustomer.cardToken.id
+        })
+            .then(customer => {
+            const days = moment().diff(moment(newCustomer.createdAt.toDate()), "days");
+            stripe.subscriptions
+                .create({
+                customer: customer.id,
+                trial_period_days: days < 0 ? 0 : days,
+                items: [
+                    { plan: "pro-plan" }
+                ]
+            })
+                .then(subscription => {
+                admin
+                    .firestore()
+                    .doc(`user/${newCustomer.id}`)
+                    .update({
+                    stripeSubscriptionId: subscription.id,
+                    stripePlanId: "pro-plan"
+                });
+                console.log(`customer ${customer.id} subscribed to pro plan`);
+            }, error => console.log(`error: ${error}`));
+        });
+    }
+    else if (oldCustomer.cardToken !== newCustomer.cardToken) {
+        // updated CC
+        stripe.customers
+            .update(newCustomer.stripeCustomerId, {
+            source: newCustomer.cardToken.id
+        })
+            .then(() => console.log(`customer card updated`), error => console.log(`error: ${error}`));
+    }
+});
 // exports.setStripePlan = functions.https.onRequest((req, res) => {
 //   const body = req.body;
 //   const newPlan = body.plan;
