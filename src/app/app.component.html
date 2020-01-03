@@ -8,7 +8,7 @@
   >
     <mat-toolbar class="toolbar">
       <img
-        src="/assets/gymJumperLogo.png"
+        src="/assets/pigeonLogo.png"
         class="title"
         (click)="navRoute('home')"
         alt="Gym Jumper"
@@ -20,7 +20,7 @@
     </mat-toolbar>
     <div class="cwindow">
       <div id="links">
-        <button
+        <!--<button
           mat-button
           class="link"
           (click)="navRoute('find-a-gym')"
@@ -43,7 +43,7 @@
           routerLinkActive="tactive"
         >
           About
-        </button>
+        </button>-->
         <button mat-button class="link" (click)="goToBlog()">Blog</button>
         <button
           mat-button
@@ -73,7 +73,7 @@
       [class.shadow]="appService.toolbarShadow"
     >
       <img
-        src="/assets/gymJumperLogo.png"
+        src="/assets/pigeonLogo.png"
         class="title"
         routerLink="home"
         alt="Gym Jumper"
@@ -81,7 +81,7 @@
       <div style="width: 50px"></div>
       <div class="flex"></div>
       <div class="desktop">
-        <button
+        <!--<button
           mat-button
           class="link"
           routerLink="find-a-gym"
@@ -105,7 +105,7 @@
         >
           About
         </button>
-        <button mat-button class="link" (click)="goToBlog()">Blog</button>
+        <button mat-button class="link" (click)="goToBlog()">Blog</button>-->
         <button mat-button class="link" (click)="routeSignUp('sign-in')">{{appService.loggedInStatus}}</button>
         <button
           mat-stroked-button

@@ -1,0 +1,46 @@
+<div class="window">
+  <div id="editor">
+    <div style="display: flex; margin-top: 8px;">
+      <mat-form-field appearance="outline" style="flex: 2; margin-right: 24px;">
+        <mat-label>name</mat-label>
+        <input
+          matInput
+          placeholder="enter bird Name"
+          required
+          [(ngModel)]="bird.name"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="flex: 1">
+        <mat-label>nickname</mat-label>
+        <input matInput [readonly]="bird.createdAt" [(ngModel)]="bird.id">
+        <mat-hint style="color:red">{{slugError}}</mat-hint>
+      </mat-form-field>
+      <button mat-icon-button color="primary" (click)="birdPhoto()"><mat-icon>camera_alt</mat-icon></button>
+      <button mat-icon-button color="primary" (click)="birdVideo()"><mat-icon>videocam</mat-icon></button>
+    </div>
+    <angular-editor
+      [(ngModel)]="bird.content"
+      [config]="editorConfig"
+    ></angular-editor>
+    <div style="display: flex; margin-top: 24px;">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="submit()"
+        [disabled]="!bird.name || !bird.content || !bird.id"
+      >
+        {{ bird.createdAt ? 'SAVE' : 'CREATE' }}
+      </button>
+      <button mat-button (click)="cancel()">CANCEL</button>
+      <button
+        mat-icon-button
+        (click)="deleteBird()"
+        *ngIf="bird?.id"
+        style="margin-left: auto"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    <mat-spinner *ngIf="loading"></mat-spinner>
+  </div>
+</div>

@@ -1,37 +1,49 @@
-.block {
-  padding: 12px;
-  max-width: 960px;
-  margin: auto;
-  text-align: center;
-  font-size: 19px;
-  margin-top: 56px;
+.container {
+  min-height: 100vh;
 }
 
-#header-img {
-  height: 40vh;
-  overflow: hidden;
-  position: relative;
+.drawer {
+  width: 250px;
 }
 
-#h-img {
-  object-fit: cover;
-  height: 100%;
+button.fabb {
+  position: fixed;
+  bottom: 48px;
+  left: 221px;
+  z-index: 100;
+}
+
+mat-drawer-content {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 12px;
+  box-sizing: border-box;
+  align-items: flex-start;
+}
+
+.full {
   width: 100%;
-  object-position: center;
 }
 
-.banner {
-  font-weight: 700;
-  line-height: 1.1875;
-  letter-spacing: -.8px;
-  font-size: 2rem;
-  margin: 1rem 8px;
-  text-align: center;
+.pad {
+  margin-right: 12px;
 }
 
-@media screen and (max-width: 785px) {
-  .banner {
-    text-align: left;
-    font-size: 1.725rem;
-  }
+#info {
+  margin-top: -24px;
+  font-style: italic;
+  opacity: .54;
+}
+
+.wall {
+  padding: 12px;
+  box-sizing: border-box;
+  background: #f7f7f7;
+  width: 100%;
+}
+
+#add-wall-button {
+  position: absolute;
+  right: 24px;
+  bottom: 12px;
 }

@@ -1,13 +1,13 @@
 {
   "projects": {
-    "default": "gym-jumper",
-    "prod": "gym-jumper"
+    "default": "pigeon-fly",
+    "prod": "pigeon-fly"
   },
   "targets": {
-    "gym-jumper": {
+    "pigeon-fly": {
       "hosting": {
         "main": [
-          "gym-jumper"
+          "pigeon-fly"
         ]
       }
     }

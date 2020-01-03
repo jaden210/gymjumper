@@ -1,5 +1,5 @@
 import { Injectable, Component, Inject } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable, combineLatest } from "rxjs";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { map, debounceTime } from "rxjs/operators";
 import {
@@ -30,6 +30,12 @@ export class AccountService {
   gymVisits;
   visitedUsers: any = {};
   isGymOwner: boolean = false;
+  makeBird: boolean = false;
+  library;
+  bird;
+  makeRace: boolean = false;
+  races;
+  race;
 
   isTrialVersion: boolean = false;
 
@@ -41,7 +47,33 @@ export class AccountService {
     public router: Router,
     public snackbar: MatSnackBar,
   ) {}
-
+  
+    getLibrary() {
+      return this.db.collection('library', ref => ref.where("userId", "==", this.user.id)).snapshotChanges().pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as any;
+            data['createdAt'] = data.createdAt.toDate();
+            const id = a.payload.doc.id;
+            return { ...data, id };
+          })
+        )
+      );
+    }
+  
+    getRaces() {
+      return this.db.collection('races', ref => ref.where("raceType", "==", "public")).snapshotChanges().pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as any;
+            data['createdAt'] = data.createdAt.toDate();
+            const id = a.payload.doc.id;
+            return { ...data, id };
+          })
+        )
+      );
+    }
+  
 
   checkFreeTrial(team): void {
     // if (!team.cardToken) {

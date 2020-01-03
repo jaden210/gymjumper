@@ -33,6 +33,7 @@ exports.createStripeCustomer = functions.auth.user().onCreate(user => {
         });
     });
 });
+<<<<<<< HEAD
 // exports.customerEnteredCC = functions.firestore
 //   .document("user/{userId}")
 //   .onUpdate((change, context) => {
@@ -84,6 +85,9 @@ exports.createStripeCustomer = functions.auth.user().onCreate(user => {
 //     }
 //   });
 exports.newSubscription = functions.firestore
+=======
+exports.customerEnteredCC = functions.firestore
+>>>>>>> f4ee204c978e76728a2b5a9724007b00a4efe7d0
     .document("user/{userId}")
     .onUpdate((change, context) => {
     let oldCustomer = change.before.data();
@@ -102,12 +106,17 @@ exports.newSubscription = functions.firestore
                 customer: customer.id,
                 trial_period_days: days < 0 ? 0 : days,
                 items: [
+<<<<<<< HEAD
                     { plan: "pro-plan" }
+=======
+                    { plan: "basic" }
+>>>>>>> f4ee204c978e76728a2b5a9724007b00a4efe7d0
                 ]
             })
                 .then(subscription => {
                 admin
                     .firestore()
+<<<<<<< HEAD
                     .doc(`user/${newCustomer.id}`)
                     .update({
                     stripeSubscriptionId: subscription.id,
@@ -122,6 +131,22 @@ exports.newSubscription = functions.firestore
         stripe.customers
             .update(newCustomer.stripeCustomerId, {
             source: newCustomer.cardToken.id
+=======
+                    .doc(`team/${change.after.id}`)
+                    .update({
+                    stripeSubscriptionId: subscription.id,
+                    stripePlanId: "small-teams"
+                });
+                console.log(`customer ${customer.id} subscribed to small teams`);
+            }, error => console.log(`error: ${error}`));
+        });
+    }
+    else if (oldT.cardToken !== newT.cardToken) {
+        // updated CC
+        stripe.customers
+            .update(newT.stripeCustomerId, {
+            source: newT.cardToken.id
+>>>>>>> f4ee204c978e76728a2b5a9724007b00a4efe7d0
         })
             .then(() => console.log(`customer card updated`), error => console.log(`error: ${error}`));
     }

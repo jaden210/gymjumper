@@ -1,0 +1,46 @@
+<div class="window">
+  <div id="editor">
+    <div style="display: flex; margin-top: 8px;">
+      <mat-form-field appearance="outline" style="flex: 2; margin-right: 24px;">
+        <mat-label>name</mat-label>
+        <input
+          matInput
+          placeholder="enter race Name"
+          required
+          [(ngModel)]="race.name"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="flex: 1">
+        <mat-label>Race Type</mat-label>
+        <mat-select [(value)]="race.raceType">
+          <mat-option value={{accountService.user.id}}>personal</mat-option>
+          <mat-option value="public">public</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <angular-editor
+      [(ngModel)]="race.content"
+      [config]="editorConfig"
+    ></angular-editor>
+    <div style="display: flex; margin-top: 24px;">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="submit()"
+        [disabled]="!race.name || !race.raceType"
+      >
+        {{ race.createdAt ? 'SAVE' : 'CREATE' }}
+      </button>
+      <button mat-button (click)="cancel()">CANCEL</button>
+      <button
+        mat-icon-button
+        (click)="deleteRace()"
+        *ngIf="race?.id"
+        style="margin-left: auto"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    <mat-spinner *ngIf="loading"></mat-spinner>
+  </div>
+</div>

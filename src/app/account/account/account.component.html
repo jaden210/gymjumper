@@ -1,5 +1,14 @@
 <mat-tab-group color="accent" id="tabs" [selectedIndex]="selectedTab" (selectedTabChange)="tabChanged($event)">
-  <mat-tab label="Personal"> 
+  <mat-tab label="Library"> 
+    <library *ngIf="!accountService.makeBird"></library>
+    <bird *ngIf="accountService.makeBird"></bird>
+  </mat-tab>
+  <mat-tab label="Race"> 
+      <races *ngIf="!accountService.makeRace && !accountService.race"></races>
+      <race *ngIf="accountService.race"></race>
+      <create-race *ngIf="accountService.makeRace"></create-race>
+  </mat-tab>
+  <mat-tab label="Account"> 
     <div class="column">
       <button mat-stroked-button class="image-button" color="primary" *ngIf="accountService.user.isDev" routerLink="/account/support">SUPPORT</button>
       <div class="image-cont">
@@ -20,6 +29,7 @@
       <button mat-button id="delete-account" color="warn" (click)="deleteAccount()"><mat-icon>delete</mat-icon> DELETE ACCOUNT</button>
     </div>
   </mat-tab>
+<<<<<<< HEAD
   <mat-tab label="History"> 
     <mat-list>
       <mat-list-item *ngFor="let visit of accountService?.visits | keyvalue">
@@ -67,3 +77,6 @@
   <mat-tab label="Scanning Station" *ngIf="showGym">
   </mat-tab>
   </mat-tab-group>
+=======
+</mat-tab-group>
+>>>>>>> f4ee204c978e76728a2b5a9724007b00a4efe7d0

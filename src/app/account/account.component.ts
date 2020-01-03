@@ -7,7 +7,7 @@ import { MatDialog, MatSidenav } from "@angular/material";
 import { AppService } from "../app.service";
 
 import * as moment from "moment";
-import { combineLatest, of } from "rxjs";
+import { combineLatest, of, concat } from "rxjs";
 
 @Component({
   selector: "app-account",
@@ -42,18 +42,12 @@ export class AccountComponent implements AfterViewInit {
             if (user.id) {
               this.accountService.user = user;
               this.accountService.userObservable.next(user);
-              this.getUserVisits(user);
-              if (user.gymId) { // get gym
-                this.accountService.db.doc<Gym>(`gyms/${user.gymId}`).valueChanges().subscribe(gym => {
-                  this.accountService.aGym = gym;
-                  this.accountService.aGym.id = this.accountService.user.gymId;
-                  this.accountService.gymObservable.next(gym);
-                  if (gym.ownerId == user.id) {
-                    this.accountService.isGymOwner = true;
-                    this.getGymVisits(gym);
-                  }
-                });
-              }
+              this.accountService.getLibrary().subscribe(birds => {
+                this.accountService.library = birds;
+              });
+              this.accountService.getRaces().subscribe(races => {
+                this.accountService.races = races;
+              });
             }
           });
       } else this.accountService.logout();

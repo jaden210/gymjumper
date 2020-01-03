@@ -2,55 +2,28 @@
   <div class="top">
     <div class="top-background"><img class="tb-img" src="/assets/gymarrow.png"></div>
     <div class="top-content">
-      <div class="header">A workout membership<br> as motivated as you are</div>
-      <div class="info">Gymjupmer Gives you the freedom to workout where you want when you want.</div>
+      <div class="header">Track your birds<br> train your birds</div>
+      <div class="info">PigeonFly helps you get the most out of your birds.</div>
       <button mat-raised-button class="action-button" (click)="routeSignUp()" color="accent">SIGN UP</button>
     </div>
   </div>
 </div>
-<div class="banner">Jump into any of these locations</div>
-<div class="slider">
-  <div class="slide-track">
-    <div class="slide" *ngFor="let gym of gyms">
-      <img src={{gym.logoUrl}} height="100" width="250" style="object-fit:contain" alt="" />
-    </div>
-    <div class="slide">
-      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/2.png" height="100" width="250" alt="" />
-    </div>
-  </div>
-</div>
-<div class="banner">
-  <button mat-raised-button [routerLink]="'/find-a-gym'" class="action-button" color="accent">FIND A GYM NEAR ME</button>
-</div>
-
-
-
-
-
-
-
+<div class="banner">Free to everyone</div>
 <div class="split-block dark">
   <div class="side">
-    <div class="banner">Small but Mighty</div>
-    <div class="b-info">Your membership comes with a tag that gives you access to any of our partnering gyms. Throw it on your keys or keep it in your wallet, your tag is the key.</div>
+    <div class="banner">Clip it on and your good to go</div>
+    <div class="b-info">Each bird gets a special RFID tag that will help track its progress and average speed, helping you become a better trainer.</div>
   </div>
   <div class="side">
-    <img class="b-img" src="/assets/tileClear.png">
+    <img class="b-img" src="/assets/rfid.jpg">
   </div>
 </div>
 <div class="split-block">
   <div class="side">
-    <div id="p-block">
-      <div class="p-title">Pro Plan</div>
-      <div id="p-price">$99/mo</div>
-      <button mat-raised-button id="get-started" [routerLink]="'/sign-up'" color="primary">GET STARTED</button>
-      <div class="p-info"><mat-icon>check</mat-icon>No fine print here. This is the best gym pass there is. Some gyms may have time or visit restrictions where applicable.</div>
-    </div>
+    <img class="b-img" src="/assets/rfid.jpg">
   </div>
   <div class="side">
-    <div class="banner">Straightforward pricing</div>
-    <div class="b-info">We hated getting locked into memberships. Even worse, writing letters and paying fees just to leave. 
-      Just pay one monthly flat rate. Free cancelations. No questions asked. 
+      <div class="banner">One easy solution to a really hard problem</div>
+      <div class="b-info">We created a smart scanner that will "recieve" each bird as it makes it back to your loft, tracking distance flown, average speed, performance and more using our intuitive platform. Race with friends, train against your own best times and more.</div>
     </div>
-  </div>
 </div>

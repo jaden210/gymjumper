@@ -20,6 +20,14 @@ import { QRCodeModule } from 'angular2-qrcode';
 import { PrintComponent } from "./print/print.component";
 import { ScanDialog } from "./scan-dialog/scan-dialog.component";
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { LibraryComponent } from "./library/library.component";
+import { BirdComponent } from "./library/bird/bird.component";
+import { BirdVideoDialog } from "./dialogs/bird-video-upload/bird-video-upload.component";
+import { BirdPhotoDialog } from "./dialogs/bird-photo-upload/bird-photo-upload.component";
+import { RacesComponent } from "./races/races.component";
+import { RaceComponent } from "./races/race/race.component";
+import { CreateRaceComponent } from "./races/create-race/create-race.component";
+import { EnterDialog } from "./dialogs/enter/enter.component";
 
 @NgModule({
   imports: [
@@ -44,14 +52,28 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     PrintComponent,
     PrintDialog,
     ScanDialog,
+<<<<<<< HEAD
     BillingComponent
+=======
+    LibraryComponent,
+    BirdComponent,
+    BirdVideoDialog,
+    BirdPhotoDialog,
+    RacesComponent,
+    RaceComponent,
+    CreateRaceComponent,
+    EnterDialog
+>>>>>>> f4ee204c978e76728a2b5a9724007b00a4efe7d0
   ],
   exports: [MaterialModule],
   entryComponents: [
     MapDialogComponent,
     DeleteAccountDialog,
     PrintDialog,
-    ScanDialog
+    ScanDialog,
+    BirdPhotoDialog,
+    BirdVideoDialog,
+    EnterDialog
   ],
   providers: [DatePipe]
 })

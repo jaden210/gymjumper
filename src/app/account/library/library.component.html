@@ -1,0 +1,12 @@
+<div class="scoll">
+  <div id="blogs">
+    <mat-nav-list>
+      <mat-list-item *ngFor="let bird of accountService?.library" (click)="editBird(bird)">
+        <img matListAvatar src={{bird.imageUrl}}>
+        <h1 matLine> {{bird.id}} - {{bird.name}}</h1>
+        <p mat-line> {{bird.topicId}} </p>
+      </mat-list-item>
+    </mat-nav-list>
+  </div>
+  <button mat-mini-fab class="fab" color="accent" (click)="newBird()"><mat-icon>forum</mat-icon>New Bird</button>
+</div>

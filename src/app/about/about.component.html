@@ -1,8 +1,58 @@
-<div id="header-img">
-    <img id="h-img" src="/assets/yoga.jpg">
-</div>
-<div class="banner">The software that goes with you</div>
-<div class="block">
-  After centuries of boredom in the fitness industry, we knew we had to do something about it.  No longer will you be stuck to one gym and one activity, no longer will your friends be gyming without you, and no longer will your spouse complain about your love handles.  Gymjumper is here for you and it isn't going anywhere.
-  <br><br>Gymjumper is an all-access pass to everything fitness in Southern Utah.  It allows you to have  one membership and have access to a plethora of fitness activities.
-</div>
+<mat-drawer-container class="container">
+    <mat-drawer class="drawer" mode="side" opened>
+      <mat-list role="list">
+          <mat-list-item role="listitem" *ngFor="let room of rooms; let i = index" (click)="selectRoom(room)">{{room.name || 'Room ' + (i + 1)}}</mat-list-item>
+          <button mat-raised-button color="primary" style="margin-left:12px; margin-top: 48px" (click)="submit()">SUBMIT DESIGN</button>
+        </mat-list>
+    </mat-drawer>
+    <mat-drawer-content>
+      <mat-form-field class="full">
+        <input matInput [(ngModel)]="room.name" placeholder="room name">
+      </mat-form-field>
+      <div class="row">
+        <mat-form-field class="pad">
+          <mat-label>Room Type</mat-label>
+          <mat-select [(value)]="room.roomType">
+            <mat-option *ngFor="let type of roomTypes" [value]="type">
+              {{type}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Color</mat-label>
+          <mat-select [(value)]="room.color">
+            <mat-option *ngFor="let color of colors" [value]="color">
+              {{color}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <h1 class="header">walls</h1>
+      <div id="info">go from left to right</div>
+      <div class="wall" *ngFor="let wall of room.walls; let i = index">
+        <h3>wall {{i + 1}}</h3>
+        <mat-form-field class="pad">
+          <input matInput [(ngModel)]="wall.width" placeholder="width">
+        </mat-form-field>
+        <mat-form-field class="pad">
+          <mat-label>depth</mat-label>
+          <mat-select [(value)]="wall.depth">
+            <mat-option *ngFor="let depth of depths" [value]="depth">
+              {{depth}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>component</mat-label>
+          <mat-select [(value)]="wall.component">
+            <mat-option *ngFor="let component of components" [value]="component">
+              {{component}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <button color="primary" id="add-wall-button" mat-raised-button (click)="addWall()">ADD A WALL</button>
+      
+    </mat-drawer-content>
+  </mat-drawer-container>
+  <button mat-fab class="fabb" (click)="addRoom()"><mat-icon>add</mat-icon></button>
