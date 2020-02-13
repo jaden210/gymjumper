@@ -52,18 +52,7 @@ import { EnterDialog } from "./dialogs/enter/enter.component";
     PrintComponent,
     PrintDialog,
     ScanDialog,
-<<<<<<< HEAD
     BillingComponent
-=======
-    LibraryComponent,
-    BirdComponent,
-    BirdVideoDialog,
-    BirdPhotoDialog,
-    RacesComponent,
-    RaceComponent,
-    CreateRaceComponent,
-    EnterDialog
->>>>>>> f4ee204c978e76728a2b5a9724007b00a4efe7d0
   ],
   exports: [MaterialModule],
   entryComponents: [
