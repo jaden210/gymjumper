@@ -25,7 +25,6 @@
     "@angular/platform-browser-dynamic": "^7.0.3",
     "@angular/router": "^7.0.3",
     "@kolkov/angular-editor": "^0.12.3",
-    "@zxing/ngx-scanner": "^2.0.1",
     "angular2-qrcode": "^2.0.1",
     "core-js": "^2.5.7",
     "firebase": "^5.5.7",

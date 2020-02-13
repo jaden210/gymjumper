@@ -19,15 +19,6 @@ import { AgmCoreModule } from "@agm/core";
 import { QRCodeModule } from 'angular2-qrcode';
 import { PrintComponent } from "./print/print.component";
 import { ScanDialog } from "./scan-dialog/scan-dialog.component";
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { LibraryComponent } from "./library/library.component";
-import { BirdComponent } from "./library/bird/bird.component";
-import { BirdVideoDialog } from "./dialogs/bird-video-upload/bird-video-upload.component";
-import { BirdPhotoDialog } from "./dialogs/bird-photo-upload/bird-photo-upload.component";
-import { RacesComponent } from "./races/races.component";
-import { RaceComponent } from "./races/race/race.component";
-import { CreateRaceComponent } from "./races/create-race/create-race.component";
-import { EnterDialog } from "./dialogs/enter/enter.component";
 
 @NgModule({
   imports: [
@@ -41,8 +32,7 @@ import { EnterDialog } from "./dialogs/enter/enter.component";
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyAsIwXbCi4l__VoFLdru1EC3bLxmcZQOZI"
     }),
-    QRCodeModule,
-    ZXingScannerModule
+    QRCodeModule
   ],
   declarations: [
     AccountComponent,
@@ -59,10 +49,7 @@ import { EnterDialog } from "./dialogs/enter/enter.component";
     MapDialogComponent,
     DeleteAccountDialog,
     PrintDialog,
-    ScanDialog,
-    BirdPhotoDialog,
-    BirdVideoDialog,
-    EnterDialog
+    ScanDialog
   ],
   providers: [DatePipe]
 })

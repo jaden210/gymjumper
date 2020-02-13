@@ -27,15 +27,6 @@ export class AccountService {
   aGym: Gym = new Gym();
   visitedGyms: any = {};
   visits;
-  gymVisits;
-  visitedUsers: any = {};
-  isGymOwner: boolean = false;
-  makeBird: boolean = false;
-  library;
-  bird;
-  makeRace: boolean = false;
-  races;
-  race;
 
   isTrialVersion: boolean = false;
 
@@ -161,6 +152,4 @@ export class Gym {
   rate?: string;
   latitude?: number;
   longitude?: number;
-  restriction: any;
-  ownerId? : string;
 }

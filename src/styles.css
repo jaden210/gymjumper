@@ -148,8 +148,4 @@ agm-map {
         bottom: 12px !important;
         right: 12px !important;
     }
-    .full-screen {
-        max-width: 98vw !important;
-        height: calc(100vh - 112px);
-    }
 }

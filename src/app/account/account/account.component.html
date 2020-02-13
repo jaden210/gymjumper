@@ -1,21 +1,13 @@
 <mat-tab-group color="accent" id="tabs" [selectedIndex]="selectedTab" (selectedTabChange)="tabChanged($event)">
-  <mat-tab label="Library"> 
-    <library *ngIf="!accountService.makeBird"></library>
-    <bird *ngIf="accountService.makeBird"></bird>
-  </mat-tab>
-  <mat-tab label="Race"> 
-      <races *ngIf="!accountService.makeRace && !accountService.race"></races>
-      <race *ngIf="accountService.race"></race>
-      <create-race *ngIf="accountService.makeRace"></create-race>
-  </mat-tab>
   <mat-tab label="Account"> 
     <div class="column">
-      <button mat-stroked-button class="image-button" color="primary" *ngIf="accountService.user.isDev" routerLink="/account/support">SUPPORT</button>
       <div class="image-cont">
         <div class="image-circle"><mat-progress-bar style="position: absolute;bottom: 0px;" *ngIf="loading" mode="indeterminate"></mat-progress-bar><img class="img" src={{accountService.user?.profileUrl}} onerror="src = '/assets/face.png'" alt="Gym Jumper"></div>
         <div style="height: 0px; width: 0px; overflow:hidden"><input type="file" id="upProfileUrl" accept=".png,.jpg,.mp4" #uploadT (change)="uploadProfileImage($event)"></div>
-        <button mat-stroked-button *ngIf="!accountService?.user.profileUrl" class="image-button" color="primary" (click)="upload(true)">UPLOAD PICTURE</button>
+        <button mat-stroked-button class="image-button" color="primary" (click)="upload(true)">CHANGE PICTURE</button>
       </div>
+      <button mat-stroked-button class="image-button" color="primary" (click)="accountService.logout()">LOGOUT</button>
+      <button mat-stroked-button class="image-button" color="primary" *ngIf="accountService.user.isDev" routerLink="/account/support">SUPPORT</button>
       <mat-form-field>
         <input matInput color="primary" placeholder="profile name" [(ngModel)]="accountService.user.name" (change)="saveProfile()">
       </mat-form-field>
@@ -25,7 +17,6 @@
       <mat-form-field>
         <input matInput color="primary" placeholder="phone" type="tel" [(ngModel)]="accountService.user.phone" (change)="saveProfile()">
       </mat-form-field>
-      <button mat-stroked-button class="image-button" color="primary" (click)="accountService.logout()">LOGOUT</button>
       <button mat-button id="delete-account" color="warn" (click)="deleteAccount()"><mat-icon>delete</mat-icon> DELETE ACCOUNT</button>
     </div>
   </mat-tab>
@@ -44,7 +35,7 @@
   <mat-tab label="Billing">
     <billing></billing>
   </mat-tab>
-  <mat-tab label="My Gym" *ngIf="accountService?.isGymOwner">
+  <mat-tab label="My Gym" *ngIf="showGym">
       <div class="column">
           <div class="image-cont">
             <div class="image-circle"><mat-progress-bar style="position: absolute;bottom: 0px;" *ngIf="loading" mode="indeterminate"></mat-progress-bar><img class="img" src={{accountService.aGym?.logoUrl}} onerror="src = '/assets/face.png'" alt="Gym Jumper"></div>
@@ -62,17 +53,6 @@
           </mat-form-field>
         </div>
   </mat-tab>
-  <mat-tab label="Gym History" *ngIf="accountService?.isGymOwner"> 
-      <mat-list>
-        <mat-list-item *ngFor="let visit of accountService?.gymVisits | keyvalue">
-          <img matListAvatar src={{accountService?.visitedUsers[visit?.value.userId]?.profileUrl}}>
-          <h3 matLine>{{visit.value.userName}}</h3>
-          <p matLine>
-            <span> last visit: {{visit?.value.createdAt}} &nbsp;&nbsp;&nbsp;&nbsp; number of visits: {{visit.value.visitCount}} </span>
-          </p>
-        </mat-list-item>
-      </mat-list>
-    </mat-tab>
   <mat-tab label="Scanning Station" *ngIf="showGym">
   </mat-tab>
   </mat-tab-group>

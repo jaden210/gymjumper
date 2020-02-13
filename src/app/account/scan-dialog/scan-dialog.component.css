@@ -26,9 +26,6 @@
 .text {
     font-size: 21px;
     opacity: .87;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 }
 
 .left {
@@ -61,68 +58,4 @@ img.logo {
     position: fixed;
     top: 45%;
     left: 50%;
-}
-
-button#camera-button {
-    position: absolute;
-    bottom: 8px;
-    left: calc(50vw - 100px);
-    width: 200px;
-}
-
-.mat-dialog-title {
-    display: flex;
-    align-items: baseline;
-}
-
-#err-txt {
-    color: red;
-}
-
-.mobile {
-    display: none;
-}
-
-.m-close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: white;
-}
-
-
-@media screen and (max-width: 785px) {
-    #card {
-        height: auto !important;
-        width: 100%;
-        border: 2px solid #f0f0f0;
-        border-radius: 4px;
-        background: #ffffff;
-        box-shadow: 5px 6px 14px -6px;
-        padding: 12px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column-reverse;
-        margin: 1px 0;
-    }
-    #name {
-        font-size: 24px;
-    }
-    .text {
-        font-size: 18px;
-        opacity: .87;
-    }
-    .right {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 20vh;
-    }
-    .desktop {
-        display: none;
-    }
-    .mobile {
-        display: inline;
-    }
 }

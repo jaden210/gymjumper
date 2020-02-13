@@ -8,19 +8,19 @@
   >
     <mat-toolbar class="toolbar">
       <img
-        src="/assets/pigeonLogo.png"
+        src="/assets/gymJumperLogo.png"
         class="title"
         (click)="navRoute('home')"
         alt="Gym Jumper"
       />
       <div class="flex"></div>
       <button mat-icon-button (click)="sidenav.close()">
-        <mat-icon>close</mat-icon>
+        <mat-icon style="color:#ffffff">close</mat-icon>
       </button>
     </mat-toolbar>
     <div class="cwindow">
       <div id="links">
-        <!--<button
+        <button
           mat-button
           class="link"
           (click)="navRoute('find-a-gym')"
@@ -43,7 +43,7 @@
           routerLinkActive="tactive"
         >
           About
-        </button>-->
+        </button>
         <button mat-button class="link" (click)="goToBlog()">Blog</button>
         <button
           mat-button
@@ -60,6 +60,8 @@
         >
           SIGN UP
         </button>
+        <div class="border"></div>
+        <sign-up></sign-up>
       </div>
     </div>
   </mat-sidenav>
@@ -73,7 +75,7 @@
       [class.shadow]="appService.toolbarShadow"
     >
       <img
-        src="/assets/pigeonLogo.png"
+        src="/assets/gymJumperLogo.png"
         class="title"
         routerLink="home"
         alt="Gym Jumper"
@@ -81,7 +83,7 @@
       <div style="width: 50px"></div>
       <div class="flex"></div>
       <div class="desktop">
-        <!--<button
+        <button
           mat-button
           class="link"
           routerLink="find-a-gym"
@@ -105,7 +107,7 @@
         >
           About
         </button>
-        <button mat-button class="link" (click)="goToBlog()">Blog</button>-->
+        <button mat-button class="link" (click)="goToBlog()">Blog</button>
         <button mat-button class="link" (click)="routeSignUp('sign-in')">{{appService.loggedInStatus}}</button>
         <button
           mat-stroked-button

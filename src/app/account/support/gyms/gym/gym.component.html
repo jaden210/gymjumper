@@ -2,7 +2,7 @@
   <div id="register">
       <div class="image-cont">
         <div class="image"><mat-progress-bar style="position: absolute;bottom: 0px;" *ngIf="loading" mode="indeterminate"></mat-progress-bar><img class="img" src={{supportService?.gym?.logoUrl}} style="object-fit: contain !important;" onerror="src = '/assets/lost.png'" alt="Gym Jumper"></div>
-        <div style="height: 0px; width: 0px; overflow:hidden"><input type="file" id="upLogoUrl" accept=".png,.jpg,.mp4" #uploadT (change)="uploadGymLogoImage($event)"></div>
+        <div style="height: 0px; width: 0px; overflow:hidden"><input type="file" id="upLogoUrl" accept=".png,.jpg,.mp4" #uploadT (change)="uploadLogoImage($event)"></div>
         <button mat-stroked-button class="image-button" color="primary" (click)="upload()">CHANGE GYM LOGO</button>
       </div>
       <mat-form-field>

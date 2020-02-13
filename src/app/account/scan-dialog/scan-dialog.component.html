@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Scan Users into your Gym <div id="err-txt">&nbsp;&nbsp;&nbsp;{{errorMsg}}</div></h2>
+<h2 mat-dialog-title>Scan Users into your Gym</h2>
   <mat-dialog-content>
     <input id="input" #url [(ngModel)]="searchString" (keyup.enter)="getUser(); url.select()" onblur="this.focus()" autofocus autocomplete="off">
     <div id="card">
@@ -7,20 +7,17 @@
         <div class="text">{{user?.email || 'email'}}</div>
         <div class="text">{{user?.id || 'member id'}}</div>
         <div class="text">last visit: {{user?.lastVisit || 'never'}}</div>
-        <img class="logo desktop" src="/assets/gymJumperLogo.png">
+        <img class="logo" src="/assets/gymJumperLogo.png">
       </div>
       <div class="right">
-        <zxing-scanner (scanSuccess)="onCodeResult($event)" *ngIf="showCamera"></zxing-scanner>
-        <img id="userImg" *ngIf="!showCamera" src={{user?.profileUrl}} onerror="src = '/assets/blindfold.png'">
+        <img id="userImg" src={{user?.profileUrl}} onerror="src = '/assets/blindfold.png'">
       </div>
     </div>
   </mat-dialog-content>
   <mat-dialog-actions style="margin-top:12px" align="end">
     <button mat-raised-button color="warn" [disabled]="!user" style="margin-right:8px" (click)="admitUserToGym()">GOOD TO GO</button>
-    <button mat-button color="warn" class="desktop" [disabled]="!user" style="margin-right:8px" (click)="viewUserAccount()">VIEW ACCOUNT</button>
+    <button mat-button color="warn" [disabled]="!user" style="margin-right:8px" (click)="viewUserAccount()">VIEW ACCOUNT</button>
     <button mat-button color="warn" style="margin-right:8px" (click)="clearUser()">CANCEL</button>
-    <button mat-button color="primary" class="desktop" (click)="close(false)">CLOSE</button>
+    <button mat-button color="primary" (click)="close(false)">CLOSE</button>
   </mat-dialog-actions>
   <mat-spinner *ngIf="loading" id="loader"></mat-spinner>
-  <button mat-raised-button id="camera-button" (click)="toggleCamera()">{{!useCamera ? 'USE DEVICE CAMERA' : 'BLOCK CAMERA ACCESS'}}</button>
-  <button mat-icon-button color="primary" class="mobile m-close" (click)="close(false)"><mat-icon>close</mat-icon></button>

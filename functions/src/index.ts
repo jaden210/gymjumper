@@ -3,37 +3,38 @@ import * as moment from "moment";
 const admin = require("firebase-admin");
 admin.initializeApp(functions.config().firebase);
 admin.firestore().settings({ timestampsInSnapshots: true });
-const stripe = require("stripe")(functions.config().stripe.token);
+//const stripe = require("stripe")(functions.config().stripe.token);
 
-//When a user is created, register them with Stripe
-exports.createStripeCustomer = functions.auth.user().onCreate(user => {
-  return stripe.customers
-    .create({
-      email: user.email,
-      description: "new Customer"
-    })
-    .then(customer => {
-      return admin
-        .firestore()
-        .collection("team")
-        .where("ownerId", "==", user.uid)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            // should only be one, can't think of a better way
-            return admin
-              .firestore()
-              .doc("team/" + doc.id)
-              .update({ stripeCustomerId: customer.id });
-          });
-        })
-        .catch(error => {
-          return console.log("Error getting documents: ", error);
-        });
-    });
-});
+// When a user is created, register them with Stripe
+// exports.createStripeCustomer = functions.auth.user().onCreate(user => {
+//   return stripe.customers
+//     .create({
+//       email: user.email,
+//       description: "new Customer"
+//     })
+//     .then(customer => {
+//       return admin
+//         .firestore()
+//         .collection("team")
+//         .where("ownerId", "==", user.uid)
+//         .get()
+//         .then(querySnapshot => {
+//           querySnapshot.forEach(doc => {
+//             // should only be one, can't think of a better way
+//             return admin
+//               .firestore()
+//               .doc("team/" + doc.id)
+//               .update({ stripeCustomerId: customer.id });
+//           });
+//         })
+//         .catch(error => {
+//           return console.log("Error getting documents: ", error);
+//         });
+//     });
+// });
 
 // exports.customerEnteredCC = functions.firestore
+<<<<<<< HEAD
 //   .document("user/{userId}")
 //   .onUpdate((change, context) => {
 //     let oldCustomer = change.before.data();
@@ -47,12 +48,30 @@ exports.createStripeCustomer = functions.auth.user().onCreate(user => {
 //         })
 //         .then(customer => {
 //           const days = moment().diff(moment(newCustomer.createdAt.toDate()), "days");
+=======
+//   .document("team/{teamId}")
+//   .onUpdate((change, context) => {
+//     let oldT = change.before.data();
+//     let newT = change.after.data();
+//     if (!oldT.cardToken && newT.cardToken) {
+//       // first time card enter
+//       stripe.customers
+//         .update(newT.stripeCustomerId, {
+//           source: newT.cardToken.id
+//         })
+//         .then(customer => {
+//           const days = moment().diff(moment(newT.createdAt.toDate()), "days");
+>>>>>>> parent of 7006850... mobile push
 //           stripe.subscriptions
 //             .create({
 //               customer: customer.id,
 //               trial_period_days: days < 0 ? 0 : days,
 //               items: [
+<<<<<<< HEAD
 //                 { plan: "basic" } 
+=======
+//                 { plan: "small-teams" } // small teams
+>>>>>>> parent of 7006850... mobile push
 //               ]
 //             })
 //             .then(
@@ -83,6 +102,7 @@ exports.createStripeCustomer = functions.auth.user().onCreate(user => {
 //         );
 //     }
 //   });
+<<<<<<< HEAD
 
 
 exports.newSubscription = functions.firestore
@@ -135,6 +155,8 @@ exports.newSubscription = functions.firestore
         );
     }
   });
+=======
+>>>>>>> parent of 7006850... mobile push
 
 // exports.setStripePlan = functions.https.onRequest((req, res) => {
 //   const body = req.body;

@@ -23,27 +23,21 @@ mat-drawer-content {
 
 .full {
   width: 100%;
+  object-position: center;
 }
 
-.pad {
-  margin-right: 12px;
+#header-img {
+  height: 50vh;
+  overflow: hidden;
 }
 
-#info {
-  margin-top: -24px;
-  font-style: italic;
-  opacity: .54;
-}
-
-.wall {
-  padding: 12px;
-  box-sizing: border-box;
-  background: #f7f7f7;
+#h-img {
+  object-fit: cover;
+  height: 100%;
   width: 100%;
 }
 
-#add-wall-button {
-  position: absolute;
-  right: 24px;
-  bottom: 12px;
+.block {
+  padding: 12px;
+  font-size: 18px;
 }
