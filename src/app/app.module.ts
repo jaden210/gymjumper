@@ -35,6 +35,7 @@ import { GetStartedModule } from "./get-started/get-started.module";
 import { CommonQuestionsComponent } from "./common-questions/common-questions.component";
 import { FindAGymComponent } from "./find-a-gym/find-a-gym.component";
 import { AgmCoreModule } from "@agm/core";
+import { VisitComponent } from "./visit/visit.component";
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { AgmCoreModule } from "@agm/core";
     CustomerAgreementComponent,
     VideoDialogComponent,
     SignUpComponent,
+    VisitComponent,
     CommonQuestionsComponent,
     FindAGymComponent
   ],

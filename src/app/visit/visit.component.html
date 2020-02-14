@@ -1,0 +1,11 @@
+<div id="full">
+  <div id="error">{{errorMessage}}</div>
+  <div *ngIf="user" class="user">
+    <div class="name">{{user.name}}</div>
+    <div class="photo"><img id="photo-url" src={{user.profileUrl}}></div>
+    <div class="info">last visit: {{lastVisit?.createdAt}}</div>
+    <div style="flex:1"></div>
+    <button mat-raised-button color="accent" (click)="admitVisit()">ENTER GYM</button>
+    <button mat-stroked-button color="accent" (click)="dismiss()">DISMISS</button>
+  </div>
+</div>

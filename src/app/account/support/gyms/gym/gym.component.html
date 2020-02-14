@@ -27,12 +27,12 @@
       </div>
       <div class="row vert">
         <div class="title">Restrictions</div>
-        <mat-radio-group aria-labelledby="radio-group-label" class="radio-group"[(ngModel)]="supportService.gym.restriction">
+        <mat-radio-group aria-labelledby="radio-group-label" class="radio-group"[(ngModel)]="supportService?.gym.restriction">
           <div class="group" *ngFor="let restriction of restrictions">
             <mat-radio-button class="radio-button" [value]="restriction">
               {{restriction.name}}
             </mat-radio-button>
-            <div class="expand" *ngIf="supportService.gym.restriction.name == restriction.name">
+            <div class="expand" *ngIf="supportService?.gym?.restriction?.name == restriction.name">
               <mat-form-field class="expand-input">
                 <input matInput type="number" step="1" [(ngModel)]="restriction.value">
               </mat-form-field>

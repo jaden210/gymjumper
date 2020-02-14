@@ -74,7 +74,7 @@ export class AppService {
           actions.map(a => {
             const data = a.payload.doc.data();
             const id = a.payload.doc.id;
-            return { ...data, id };
+            return { data, id };
           })
         ),
         tap(invites => (this.invites = invites))

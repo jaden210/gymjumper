@@ -1,0 +1,53 @@
+#full {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: #ffffff;
+}
+
+#error {
+  height: 42px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  height: calc(100vh - 42px);
+  box-sizing: border-box;
+}
+
+.name {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.photo {
+  height: 80vw;
+  width: 80vw;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+#photo-url {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.info {
+  margin: 12px;
+  font-size: 22px;
+}
+
+button {
+  margin: 12px;
+  align-self: normal;
+  height: 42px;
+}

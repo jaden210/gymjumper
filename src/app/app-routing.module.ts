@@ -13,10 +13,12 @@ import { PrivacyPolicyComponent } from "./privacy-policy/privacy-policy.componen
 import { CustomerAgreementComponent } from "./customer-agreement/customer-agreement.component";
 import { AuthGuard } from "./auth.gaurd";
 import { FindAGymComponent } from "./find-a-gym/find-a-gym.component";
+import { VisitComponent } from "./visit/visit.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
   { path: "home", component: HomeComponent },
+  { path: "visit/:id", component: VisitComponent },
   { path: "pricing", component: PricingComponent },
   { path: "about", component: AboutComponent },
   { path: "contact", component: ContactComponent },

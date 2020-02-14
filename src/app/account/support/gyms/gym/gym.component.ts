@@ -100,7 +100,7 @@ export class GymComponent implements OnInit {
   template: `
   <h2 mat-dialog-title>Print your Gym Code</h2>
   <mat-dialog-content>
-  <qr-code [value] = "'https://gymjumper.com/'+ data?.id" [size] = "500"></qr-code>
+  <qr-code [value] = "'https://gymjumper.com/visit/'+ data?.id" [size] = "500"></qr-code>
   </mat-dialog-content>
   <mat-dialog-actions style="margin-top:12px" align="end">
   <button mat-raised-button color="warn" (click)="close()">CLOSE</button>
