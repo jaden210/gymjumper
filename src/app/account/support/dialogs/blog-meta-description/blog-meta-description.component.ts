@@ -1,6 +1,6 @@
 import { Component, OnInit, Pipe, Inject } from '@angular/core';
 import { map, takeLast, flatMap, catchError } from "rxjs/operators";
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 

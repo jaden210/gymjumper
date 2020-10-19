@@ -4,7 +4,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { map, finalize } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { ScanDialog } from '../scan-dialog/scan-dialog.component';
@@ -14,13 +14,11 @@ import { environment } from "src/environments/environment";
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+  styleUrls: ['./account.component.scss']
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  private subscription: Subscription;
   showGym: boolean = false;
   loading: boolean = false;
-  loadingBilling: boolean = false;
   selectedTab;
   private _stripe: any;
   private _elements: any;
@@ -38,13 +36,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.subscription = this.accountService.userObservable.subscribe(user => {
-      if (user) {
-        if (this.accountService.user.gymId) {
-          this.showGym = true;
-        }
-      }
-    })
   }
 
   upload(profile): void { // this will call the file input from our custom button
@@ -68,27 +59,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     ).subscribe();
   }
 
-  uploadGymLogo(event) {
-    this.loading = true;
-    let file = event.target.files[0];
-    let filePath = this.accountService.aGym.id + '/' + "logo-image";
-    let ref = this.storage.ref(filePath);
-    let task = this.storage.upload(filePath, file);
-    task.snapshotChanges().pipe(
-      finalize(() => {
-        ref.getDownloadURL().subscribe(url => {
-          this.accountService.db.collection("gyms").doc<Gym>(this.accountService.aGym.id).update({logoUrl: url}).then(() => this.loading = false);
-        });
-      })
-    ).subscribe();
-  }
-
   saveProfile() {
     this.accountService.db.collection("user").doc(this.accountService.user.id).update({...this.accountService.user});
-  }
-
-  saveGym() {
-    this.accountService.db.collection("gyms").doc(this.accountService.aGym.id).update({...this.accountService.aGym});
   }
 
   deleteAccount() {
@@ -112,75 +84,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  printDialog() {
-    let dialog = this.dialog.open(PrintDialog, {
-      disableClose: true,
-      height: "100vh", // ??
-    });
-    dialog.afterClosed().subscribe(print => {
-      if (print) {
-        this.router.navigate(['account/account/print']);
-      }
-    });
-  }
-
-  tabChanged(event) {
-    if (event.index == 4) { // be careful
-      let dialog = this.openScanningDialog();
-      dialog.afterClosed().subscribe(dialog => { // fix
-        this.selectedTab = 3;
-      });
-    }
-    
-  }
-
-  openScanningDialog(): any {
-    let dialog = this.dialog.open(ScanDialog, {
-      data: {gym: this.accountService.aGym},
-      disableClose: true
-    });
-    return dialog;
-  }
-
-  async getBillingHistory() {
-    this.loadingBilling = true;
-    const res = await fetch("", {
-      method: 'POST',
-      body: JSON.stringify({
-        stripeCustomerId: this.accountService.user.stripeCustomerId,
-      }),
-    });
-    const data = await res.json();
-    data.body = JSON.parse(data.body);
-    return data;
-  }
-
   ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
-}
-
-
-@Component({
-  template: `
-  <h2 mat-dialog-title>Print your Gym Code</h2>
-  <mat-dialog-content>
-  This code will be used to verify that GYMjumper users have access to your location. Simply place this code at your front desk, and users will scan it from the GYMjumper app. The app will verify with you that they have access to your gym.
-  </mat-dialog-content>
-  <mat-dialog-actions style="margin-top:12px" align="end"><button mat-button color="primary" style="margin-right:8px" (click)="close(false)">CANCEL</button>
-  <button mat-raised-button color="warn" (click)="close(true)">PRINT</button>
-  </mat-dialog-actions>
-  `
-})
-export class PrintDialog {
-  constructor(
-    public dialogRef: MatDialogRef<DeleteAccountDialog>
-  ) {}
-
-  close(submit) {
-    this.dialogRef.close(submit);
-  }
 }
 
 @Component({

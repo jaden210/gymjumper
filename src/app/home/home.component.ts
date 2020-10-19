@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
   }
 
   routeSignUp() {
-    this.auth.auth.onAuthStateChanged(user => {
+    this.auth.onAuthStateChanged(user => {
       if (user && user.uid) {
         this.router.navigate(["account"]);
       } else {

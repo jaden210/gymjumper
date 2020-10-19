@@ -1,45 +1,73 @@
-import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Component, OnInit } from '@angular/core';
+import { AppService } from '../app.service';
 
 @Component({
-  selector: 'app-how',
   templateUrl: './how.component.html',
-  styleUrls: ['./how.component.css'],
-  animations: [
-    trigger('scrollAnimation', [
-      state('show', style({
-        opacity: 1,
-        transform: "translateX(0)"
-      })),
-      state('hide',   style({
-        opacity: 0,
-        transform: "translateX(-100%)"
-      })),
-      transition('show => hide', animate('700ms ease-out')),
-      transition('hide => show', animate('700ms ease-in'))
-    ])
-  ]
+  styleUrls: ['./how.component.css']
 })
-export class HowComponent {
+export class HowComponent implements OnInit {
+  
+  rooms: Room[] = [];
+  room: Room = new Room();
+  roomTypes = [
+    "test","test2"
+  ];
+  components = [
+    "high", "high-low", "high/organizer/high"
+  ]
 
-  state = 'show'
+  colors = ["white", "textured gray"];
 
-  constructor(public el: ElementRef) { }
+  depths = [12,14,16];
 
-  @HostListener('window:scroll', ['$event']) // TODO: FIX ME
-  onWindowScroll() {
-      const componentPosition = this.el.nativeElement.offsetTop
-      const scrollPosition = window.pageYOffset
+  constructor(public appService: AppService){}
 
-      if (scrollPosition >= componentPosition) {
-        console.log('hit');
-        
-        this.state = 'show'
-      } else {
-        console.log('hiiit');
-        this.state = 'hide'
-      }
+  addRoom() {
+    let room = new Room();
+    let newWall = new Wall();
+    room.walls.push(newWall);
+    this.rooms.push(room);
+    this.room = room;
+  }
 
-    }
+  addWall() {
+    let newWall = new Wall();
+    this.room.walls.push(newWall);
+  }
 
+  selectRoom(room) {
+    this.room = room;
+  }
+
+  reset() {
+    this.rooms = [];
+    this.room = new Room();
+    this.addRoom();
+  }
+
+  ngOnInit() {
+    this.addRoom();
+  }
+
+  submit() {
+    this.appService.db.collection("closets").add({...this.rooms}).then(() => {
+      this.reset();
+    })
+  }
+
+}
+
+
+
+export class Room {
+  name: any;
+  roomType: any;
+  walls: Wall[] = [];
+  color: any;
+}
+
+export class Wall {
+  width: number;
+  depth: number = 16;
+  component: any;
 }

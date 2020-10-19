@@ -16,6 +16,10 @@ export class BillingComponent implements OnInit {
   private _elements: any;
   private _card: any;
 
+  loadingBilling: boolean = false;
+
+  loaded: boolean = false;
+
   constructor(
     public accountService: AccountService,
     private storage: AngularFirestore,
@@ -27,6 +31,7 @@ export class BillingComponent implements OnInit {
   }
 
   load() {
+    this.accountService.user.cardToken = null;
     // Create a Stripe client.
     this._stripe = Stripe(environment.stripe.publishable);
 
@@ -50,6 +55,43 @@ export class BillingComponent implements OnInit {
       }
       //this.isCardValid = event.complete;
     });
+    this.loaded = true;
+        // Listen for form submission, process the form with Stripe,
+    // and get the 
+    const paymentForm = document.getElementById('payment-form');
+    paymentForm.addEventListener('submit', event => {
+      event.preventDefault();
+      this._stripe.createToken(this._card).then(result => {
+        if (result.error) {
+          console.log('Error creating payment method.');
+          const errorElement = document.getElementById('card-errors');
+          errorElement.textContent = result.error.message;
+        } else {
+          // At this point, you should send the token ID
+          // to your server so it can attach
+          // the payment source to a customer
+          console.log('Token acquired!');
+          this.accountService.db.doc(`user/${this.accountService.user.id}`)
+          .update({cardToken:result.token}).then(result => {
+            console.log('done!');
+          })
+        }
+      });
+    })
+  }
+
+
+  async getBillingHistory() {
+    this.loadingBilling = true;
+    const res = await fetch("", {
+      method: 'POST',
+      body: JSON.stringify({
+        stripeCustomerId: this.accountService.user.stripeCustomerId,
+      }),
+    });
+    const data = await res.json();
+    data.body = JSON.parse(data.body);
+    return data;
   }
 
 }

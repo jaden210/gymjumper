@@ -1,10 +1,12 @@
-<agm-map [latitude]="searchParams.lat" [longitude]="searchParams.long" [zoom]="searchParams.zoom" [usePanning]="true">
-  <agm-marker *ngFor="let gym of gyms" (markerClick)="aGym = gym" [latitude]="gym.latitude" [longitude]="gym.longitude"></agm-marker>
+<agm-map [latitude]="searchParams.lat" [longitude]="searchParams.long" [zoom]="searchParams.zoom" [usePanning]="true" [disableDefaultUI]="true">
+  <agm-marker *ngFor="let gym of filterGyms" (markerClick)="aGym = gym" [latitude]="gym.latitude" [label]="gym.label" [title]="gym.name" [longitude]="gym.longitude" [iconUrl]="getIcon()"></agm-marker>
 </agm-map>
 <div id="search">
   <mat-icon>search</mat-icon>
-  <input #search placeholder="search by zipcode" (keyup.enter)="searchByZip(search.value)">
+  <input placeholder="search" [(ngModel)]="search" (keyup.enter)="searchByZip(search)">
+  <mat-icon *ngIf="search" (click)="searchByZip(); search = null">close</mat-icon>
 </div>
+<button mat-mini-fab id="list-btn" (click)="swapView()"><mat-icon>{{view == 'list' ? 'explore' : 'list'}}</mat-icon></button>
 <button id="close" *ngIf="aGym" (click)="aGym = null" mat-mini-fab color="white"><mat-icon>close</mat-icon></button>
 <div id="gym" *ngIf="aGym">
   <img id="gym-img" [src]="aGym.logoUrl" onerror="src = '/assets/lost.png'">
@@ -21,6 +23,13 @@
       <div class="gym-info">&nbsp;{{aGym.zip}}</div>
     </div>
     <div class="gym-info">{{aGym.phone}}</div>
+    <div class="gym-block">{{aGym.info}}</div>
+    <div *ngIf="isLoggedIn && aGym.restrictionText" class="gym-block restrictions">{{aGym?.restrictionText}}</div>
+    <div *ngIf="isLoggedIn && aGym.lastVisit" class="gym-block restrictions">LastVisit: {{aGym?.lastVisit?.createdAt.fromNow()}}</div>
+    <div *ngIf="isLoggedIn && aGym.remainingVisits < aGym.restrictionCount" class="gym-block restrictions">You have {{aGym?.remainingVisits}} remaining visit(s) this month</div>
   </div>
 </div>
-<div class="loading" *ngIf="loading"><mat-spinner></mat-spinner>Try searching</div>
+<mat-list id="list" class="mat-elevation-z4" *ngIf="view == 'list'">
+  <mat-list-item *ngFor="let gym of filterGyms" (click)="view = 'map'; aGym = gym"> {{gym.name}} </mat-list-item>
+</mat-list>
+<div class="loading" *ngIf="loading"><mat-spinner></mat-spinner>Finding fitness centers...</div>

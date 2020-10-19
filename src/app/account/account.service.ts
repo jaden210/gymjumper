@@ -5,11 +5,15 @@ import { map, debounceTime } from "rxjs/operators";
 import {
   MatDialog,
   MatDialogRef,
-  MatSnackBar,
   MAT_DIALOG_DATA,
-  MatSnackBarRef,
+} from "@angular/material/dialog";
+import {
+  MatSnackBar,
+  MatSnackBarRef
+} from "@angular/material/snack-bar";
+import {
   MatSidenav
-} from "@angular/material";
+} from "@angular/material/sidenav";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { Router } from "@angular/router";
 import { AngularFireStorage } from "@angular/fire/storage";
@@ -28,8 +32,6 @@ export class AccountService {
   visitedGyms: any = {};
   visits;
 
-  isTrialVersion: boolean = false;
-
   constructor(
     public db: AngularFirestore,
     private auth: AngularFireAuth,
@@ -38,32 +40,6 @@ export class AccountService {
     public router: Router,
     public snackbar: MatSnackBar,
   ) {}
-  
-    getLibrary() {
-      return this.db.collection('library', ref => ref.where("userId", "==", this.user.id)).snapshotChanges().pipe(
-        map(actions =>
-          actions.map(a => {
-            const data = a.payload.doc.data() as any;
-            data['createdAt'] = data.createdAt.toDate();
-            const id = a.payload.doc.id;
-            return { ...data, id };
-          })
-        )
-      );
-    }
-  
-    getRaces() {
-      return this.db.collection('races', ref => ref.where("raceType", "==", "public")).snapshotChanges().pipe(
-        map(actions =>
-          actions.map(a => {
-            const data = a.payload.doc.data() as any;
-            data['createdAt'] = data.createdAt.toDate();
-            const id = a.payload.doc.id;
-            return { ...data, id };
-          })
-        )
-      );
-    }
   
 
   checkFreeTrial(team): void {
@@ -97,7 +73,7 @@ export class AccountService {
   }
 
   logout(): void {
-    this.auth.auth.signOut().then(() => {
+    this.auth.signOut().then(() => {
       this.router.navigate(["/home"]); 
       // bug that doesnt update sign in / account button
     });
@@ -152,4 +128,8 @@ export class Gym {
   rate?: string;
   latitude?: number;
   longitude?: number;
+  info?: string;
+  restrictionText?: string;
+  restrictionCount?: number;
+  isActive: boolean = false;
 }

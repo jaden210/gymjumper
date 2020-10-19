@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, Injector } from '@angular/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Observable } from 'rxjs';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SupportService } from '../../support.service';
 import { Gym, AccountService } from 'src/app/account/account.service';
 import { AngularFireStorage } from '@angular/fire/storage';
@@ -41,13 +41,14 @@ export class GymComponent implements OnInit {
   uploadGymLogoImage(event) {
     this.loading = true;
     let file = event.target.files[0];
-    let filePath = this.accountService.aGym.id + '/' + "logo-image";
+    let filePath = this.supportService.gym.id + '/' + "logo-image";
     let ref = this.storage.ref(filePath);
     let task = this.storage.upload(filePath, file);
     task.snapshotChanges().pipe(
       finalize(() => {
         ref.getDownloadURL().subscribe(url => {
-          this.accountService.db.collection("gyms").doc<Gym>(this.accountService.aGym.id).update({logoUrl: url}).then(() => this.loading = false);
+          this.supportService.gym.logoUrl = url;
+          this.accountService.db.collection("gyms").doc<Gym>(this.supportService.gym.id).update({logoUrl: url}).then(() => this.loading = false);
         });
       })
     ).subscribe();
@@ -100,7 +101,7 @@ export class GymComponent implements OnInit {
   template: `
   <h2 mat-dialog-title>Print your Gym Code</h2>
   <mat-dialog-content>
-  <qr-code [value] = "'https://gymjumper.com/visit/'+ data?.id" [size] = "500"></qr-code>
+  <qr-code [value] = "'https://gymjumper.io/visit/'+ data?.id" [size] = "500"></qr-code>
   </mat-dialog-content>
   <mat-dialog-actions style="margin-top:12px" align="end">
   <button mat-raised-button color="warn" (click)="close()">CLOSE</button>

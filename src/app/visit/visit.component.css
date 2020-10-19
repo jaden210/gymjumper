@@ -8,6 +8,24 @@
   background-color: #ffffff;
 }
 
+#center {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: #ffffff;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  font-size: 21px;
+  padding: 12px;
+}
+
 #error {
   height: 42px;
   font-size: 24px;
@@ -19,13 +37,21 @@
   flex-direction: column;
   align-items: center;
   padding: 12px;
-  height: calc(100vh - 42px);
+  height: 100vh;
   box-sizing: border-box;
 }
 
 .name {
   font-size: 24px;
-  margin-bottom: 12px;
+  margin-top: 12px;
+  color: #212121;
+}
+
+#bottom {
+  position: fixed;
+  bottom: 12px;
+  margin: 12px;
+  width: calc(100vw - 24px);
 }
 
 .photo {
@@ -42,12 +68,34 @@
 }
 
 .info {
-  margin: 12px;
-  font-size: 22px;
+  margin: 8px;
+  opacity: .54;
+  font-style: italic;
+  font-size: 17px;
+  white-space: pre;
 }
 
 button {
-  margin: 12px;
+  margin: 8px;
   align-self: normal;
   height: 42px;
+}
+
+.gym-photo {
+  margin-bottom: 24px;
+  height: 100px;
+}
+
+#gym-url {
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+}
+
+.badge {
+  height: 200px;
+}
+
+h2 {
+  margin-top: 0;
 }

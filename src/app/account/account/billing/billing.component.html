@@ -1,12 +1,11 @@
 <div id="billing">
   <ng-container *ngIf="!accountService.user.cardToken">
-    <div class="card">
+    <div class="card mat-elevation-z8">
       <div class="free">You are in a free version of Gymjumper. To unlock all of our best features (like going to any gym, anytime) enter your payment info below.</div>
-      <button raised-button (click)="load()">ENTER CARD INFO</button>
-      <div id="stripe" class="card" style="padding-bottom: 8px;">
+      <button mat-raised-button color="primary" *ngIf="!loaded" (click)="load()">Enter card info</button>
+      <div id="stripe" class="stripe" style="padding-bottom: 8px;">
         <div class="card-title">
           <span>Credit or debit card</span>
-          <img src="/assets/stripe.png" />
         </div>
         <form action="/charge" method="post" id="payment-form">
           <div class="form-row">
@@ -15,22 +14,23 @@
             </div>
             <!-- Used to display form errors. -->
             <div id="card-errors" role="alert"></div>
+            <button mat-raised-button color="primary" style="margin:24px" *ngIf="loaded" type="submit">Sign up</button>
           </div>
         </form>
       </div>
     </div>
   </ng-container>
   <ng-container *ngIf="accountService.user.cardToken">
-    <div class="card">
+    <div class="card mat-elevation-z8">
       <div class="free">Thank you! Your card is on file and securely stored with Stripe for monthly billing. Click below to update or change your payment information, anytime.</div>
-      <button mat-raised-button color="accent" style="color:#ffffff;align-self: flex-end;" (click)="enterCardInfo()">UPDATE PAYMENT</button>
+      <button mat-stroked-button color="accent" (click)="load()">Update payment Method</button>
     </div>
   </ng-container>
   <div class="s-row">
     <div class="stripe-text">Payments are secured by </div>
     <div class="f-image"><img id="f-img" src="/assets/stripeName.png"></div>
   </div>
-  <div id="bh" class="card">
+  <div id="bh" class="card mat-elevation-z8">
     <div class="bh-row">
       <div id="bh-title">Billing History</div>
       <div class="flex"></div>

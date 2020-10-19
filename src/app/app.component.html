@@ -1,139 +1,76 @@
-<mat-sidenav-container>
-  <mat-sidenav
-    mode="over"
-    #sidenav
-    id="sidenav"
-    position="end"
-    [(opened)]="open"
-  >
-    <mat-toolbar class="toolbar">
-      <img
-        src="/assets/gymJumperLogo.png"
-        class="title"
-        (click)="navRoute('home')"
-        alt="Gym Jumper"
-      />
-      <div class="flex"></div>
-      <button mat-icon-button (click)="sidenav.close()">
-        <mat-icon style="color:#ffffff">close</mat-icon>
-      </button>
-    </mat-toolbar>
-    <div class="cwindow">
-      <div id="links">
-        <button
-          mat-button
-          class="link"
-          (click)="navRoute('find-a-gym')"
-          routerLinkActive="tactive"
-        >
-          Gyms near you
-        </button>
-        <button
-          mat-button
-          class="link"
-          (click)="navRoute('pricing')"
-          routerLinkActive="tactive"
-        >
-          Pricing
-        </button>
-        <button
-          mat-button
-          class="link"
-          (click)="navRoute('about')"
-          routerLinkActive="tactive"
-        >
-          About
-        </button>
-        <button mat-button class="link" (click)="goToBlog()">Blog</button>
-        <button
-          mat-button
-          class="link"
-          (click)="routeSignUp('sign-in')"
-          routerLinkActive="tactive"
-        >
-          {{appService.loggedInStatus}}
-        </button>
-        <button
-          mat-stroked-button
-          style="margin: 24px 0;"
-          (click)="routeSignUp('sign-up')"
-        >
-          SIGN UP
-        </button>
-        <div class="border"></div>
-        <sign-up></sign-up>
-      </div>
-    </div>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar
-      class="toolbar"
-      *ngIf="
-        !router.isActive('/signin', false) &&
-        !router.isActive('/get-started', false)
-      "
-      [class.shadow]="appService.toolbarShadow"
+<mat-toolbar
+  class="toolbar"
+  *ngIf="
+    !router.isActive('/signin', false) &&
+    !router.isActive('/get-started', false)
+  "
+  [class.shadow]="appService.toolbarShadow"
+>
+  <img
+    src="/assets/gymJumperLogo.png"
+    class="title"
+    routerLink="home"
+    alt="Gym Jumper"
+  />
+  <div style="width: 50px"></div>
+  <div class="flex"></div>
+  <div class="desktop">
+    <button
+      mat-button
+      class="link"
+      routerLink="find-a-gym"
+      routerLinkActive="tactive"
     >
-      <img
-        src="/assets/gymJumperLogo.png"
-        class="title"
-        routerLink="home"
-        alt="Gym Jumper"
-      />
-      <div style="width: 50px"></div>
-      <div class="flex"></div>
-      <div class="desktop">
-        <button
-          mat-button
-          class="link"
-          routerLink="find-a-gym"
-          routerLinkActive="tactive"
-        >
-          Gyms near you
-        </button>
-        <button
-          mat-button
-          class="link"
-          routerLink="pricing"
-          routerLinkActive="tactive"
-        >
-          Pricing
-        </button>
-        <button
-          mat-button
-          class="link"
-          routerLink="about"
-          routerLinkActive="tactive"
-        >
-          About
-        </button>
-        <button mat-button class="link" (click)="goToBlog()">Blog</button>
-        <button mat-button class="link" (click)="routeSignUp('sign-in')">{{appService.loggedInStatus}}</button>
-        <button
-          mat-stroked-button
-          (click)="routeSignUp('sign-up')"
-        >
-          SIGN UP
-        </button>
-      </div>
-      <div class="mobile">
-        <button mat-icon-button (click)="open = true">
-          <mat-icon>menu</mat-icon>
-        </button>
-      </div>
-    </mat-toolbar>
-    <div id="spacer"></div>
-    <div class="hwindow" id="scroll">
-      <router-outlet></router-outlet>
-      <footer
-        id="footer"
-        *ngIf="
-          !router.isActive('/account', false) &&
-          !router.isActive('/signin', false) &&
-          !router.isActive('/find-a-gym', false) &&
-          !router.isActive('/get-started', false)
-        "
-      ></footer>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+      Map of partners
+    </button>
+    <button
+      mat-button
+      class="link"
+      routerLink="how-it-works"
+      routerLinkActive="tactive"
+    >
+      How it works
+    </button>
+    <button
+      mat-button
+      class="link"
+      routerLink="pricing"
+      routerLinkActive="tactive"
+    >
+      Pricing
+    </button>
+    <button
+      mat-button
+      class="link"
+      routerLink="about"
+      routerLinkActive="tactive"
+    >
+      About
+    </button>
+    <button mat-button class="link" (click)="routeSignUp('sign-in')">{{appService.loggedInStatus}}</button>
+    <button
+      mat-stroked-button
+      (click)="routeSignUp('sign-up')"
+    >
+      SIGN UP
+    </button>
+  </div>
+  <div class="mobile">
+    <button mat-icon-button (click)="navSheet()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+<div id="spacer"></div>
+<div class="hwindow" id="scroll">
+  <router-outlet></router-outlet>
+  <footer
+    id="footer"
+    *ngIf="
+      !router.isActive('/account', false) &&
+      !router.isActive('/signin', false) &&
+      !router.isActive('/find-a-gym', false) &&
+      !router.isActive('/get-started', false)
+    "
+  ></footer>
+</div>

@@ -13,7 +13,7 @@
 
 .title {
   color: #212121;
-  font-size: 62px;
+  font-size: 42px;
   padding-top: 100px;
   margin-bottom: 24px;
   max-width: 740px;
@@ -180,6 +180,8 @@ img {
   }
   .p {
     padding: 0;
+    margin: 64px 8px;
+    text-align: center;
   }
   #spacer {
     height: 8px;

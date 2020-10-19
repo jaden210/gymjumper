@@ -2,8 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import {
   ProfileComponent,
-  DeleteAccountDialog,
-  PrintDialog
+  DeleteAccountDialog
 } from "./account/account.component";
 import { AccountRoutingModule } from "./account-routing.module";
 import { MaterialModule } from "../material/material.module";
@@ -40,7 +39,6 @@ import { ScanDialog } from "./scan-dialog/scan-dialog.component";
     MapDialogComponent,
     DeleteAccountDialog,
     PrintComponent,
-    PrintDialog,
     ScanDialog,
     BillingComponent
   ],
@@ -48,7 +46,6 @@ import { ScanDialog } from "./scan-dialog/scan-dialog.component";
   entryComponents: [
     MapDialogComponent,
     DeleteAccountDialog,
-    PrintDialog,
     ScanDialog
   ],
   providers: [DatePipe]

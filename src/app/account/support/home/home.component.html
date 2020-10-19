@@ -1,13 +1,13 @@
 <mat-tab-group>
+  <mat-tab label="Gyms">
+    <app-gyms *ngIf="!supportService.makeGym"></app-gyms>
+    <app-gym *ngIf="supportService.makeGym"></app-gym>
+  </mat-tab>
   <mat-tab label="support">
     <web-support></web-support>
   </mat-tab>
   <mat-tab label="Blogs">
     <app-view-blogs *ngIf="!supportService.makeBlog"></app-view-blogs>
     <app-make-blog *ngIf="supportService.makeBlog"></app-make-blog>
-  </mat-tab>
-  <mat-tab label="Gyms">
-    <app-gyms *ngIf="!supportService.makeGym"></app-gyms>
-    <app-gym *ngIf="supportService.makeGym"></app-gym>
   </mat-tab>
 </mat-tab-group>

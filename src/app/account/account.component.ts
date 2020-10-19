@@ -3,7 +3,8 @@ import { AccountService, User, Gym } from "./account.service";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { map } from "rxjs/operators";
 import { Router } from "@angular/router";
-import { MatDialog, MatSidenav } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
+import { MatSidenav } from "@angular/material/sidenav";
 import { AppService } from "../app.service";
 
 import * as moment from "moment";
@@ -26,7 +27,7 @@ export class AccountComponent implements AfterViewInit {
     public router: Router,
     public dialog: MatDialog
   ) {
-    this.auth.auth.onAuthStateChanged(user => {
+    this.auth.onAuthStateChanged(user => {
       if (user && user.uid) {
         let userDoc = this.accountService.db.collection("user").doc(user.uid);
         userDoc
@@ -43,13 +44,6 @@ export class AccountComponent implements AfterViewInit {
               this.accountService.user = user;
               this.accountService.userObservable.next(user);
               this.getUserVisits(user);
-              if (user.gymId) { // get gym
-                this.accountService.db.doc<Gym>(`gyms/${user.gymId}`).valueChanges().subscribe(gym => {
-                  this.accountService.aGym = gym;
-                  this.accountService.aGym.id = this.accountService.user.gymId;
-                  this.accountService.gymObservable.next(gym);
-                });
-              }
             }
           });
       } else this.accountService.logout();
@@ -61,7 +55,7 @@ export class AccountComponent implements AfterViewInit {
   }
 
   getUserVisits(user) {
-    this.accountService.db.collection(`visits`, ref => ref.where("userId", "==", this.accountService.user.id)).snapshotChanges().pipe(
+    this.accountService.db.collection(`visits`, ref => ref.where("userId", "==", this.accountService.user.id).orderBy("createdAt", "desc")).snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {
           const data = a.payload.doc.data() as any;
@@ -71,8 +65,6 @@ export class AccountComponent implements AfterViewInit {
         })
       )
     ).subscribe(visits => {
-      
-      
       let result = {};
       this.accountService.visits = visits;
         combineLatest(
@@ -90,6 +82,8 @@ export class AccountComponent implements AfterViewInit {
           })
         ).subscribe((gyms: Gym[]) => {
           console.log(this.accountService.visitedGyms);
+          console.log(this.accountService.visits);
+          
           
         });
 /*       visits.forEach(visit => {

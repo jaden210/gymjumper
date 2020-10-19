@@ -1,46 +1,45 @@
-<div class="window">
-  <div id="layout">
-    <div class="p">
-      <span class="title">Train your birds</span>
-      <div class="info">Create an account here</div>
+<div id="layout">
+  <div class="p">
+    <span class="title">Start using Gymjumper today</span>
+    <div class="info">Creating an account is free, so get in and have a look around. You can enter your billing info inside your account. We will only charge once a month
+      and you get full access to all of our parnering locations.
     </div>
-    <div id="side">
-      <div class="card">
-        <img id="header" src="/assets/pigeonLogo.png" alt="Gym Jumper" />
-        <div class="error">{{ loginErrorStr }}</div>
-        <div id="form">
-          <mat-form-field>
-            <input
-              matInput
-              (keyup.enter)="createAccount()"
-              type="email"
-              required
-              placeholder="email"
-              [(ngModel)]="email"
-            />
-          </mat-form-field>
-        </div>
-        <div class="row">
-          <span id="account" class="hide"
-            >Already have an account? <a routerLink="/sign-in">Sign in</a></span
-          >
-          <button
-            mat-raised-button
-            color="accent"
-            style="color: white"
-            (click)="createAccount()"
-          >
-            CREATE ACCOUNT
-          </button>
-        </div>
+  </div>
+  <div id="side">
+    <div class="card">
+      <div class="error">{{ loginErrorStr }}</div>
+      <div id="form">
+        <mat-form-field>
+          <input
+            matInput
+            (keyup.enter)="createAccount()"
+            type="email"
+            required
+            placeholder="email"
+            [(ngModel)]="email"
+          />
+        </mat-form-field>
       </div>
-      <div class="card lock">
-        <mat-icon id="lock">lock</mat-icon>
-        <div id="secure">
-          We secure your login information using
-          <b>Google's highest standard oAuth 2.0</b> and secure your data in the
-          cloud using Google Cloud Firestore
-        </div>
+      <div class="row">
+        <span id="account" class="hide"
+          >Already have an account? <a routerLink="/sign-in">Sign in</a></span
+        >
+        <button
+          mat-raised-button
+          color="accent"
+          style="color: white"
+          (click)="createAccount()"
+        >
+          CREATE ACCOUNT
+        </button>
+      </div>
+    </div>
+    <div class="card lock">
+      <mat-icon id="lock">lock</mat-icon>
+      <div id="secure">
+        We secure your login information using
+        <b>Google's highest standard oAuth 2.0</b> and secure your data in the
+        cloud using Google Cloud Firestore
       </div>
     </div>
   </div>

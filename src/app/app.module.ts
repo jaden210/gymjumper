@@ -14,7 +14,7 @@ import { environment } from "../environments/environment";
 import { AngularEditorModule } from "@kolkov/angular-editor";
 import { HttpClientModule } from "@angular/common/http";
 
-import { AppComponent } from "./app.component";
+import { AppComponent, NavigationSheet } from "./app.component";
 import { MaterialModule } from "./material/material.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { HomeComponent } from "./home/home.component";
@@ -56,7 +56,8 @@ import { VisitComponent } from "./visit/visit.component";
     SignUpComponent,
     VisitComponent,
     CommonQuestionsComponent,
-    FindAGymComponent
+    FindAGymComponent,
+    NavigationSheet
   ],
   imports: [
     BrowserModule,
@@ -71,7 +72,7 @@ import { VisitComponent } from "./visit/visit.component";
     AngularEditorModule,
     HttpClientModule,
     GetStartedModule,
-    SharedModule.forRoot(),
+    SharedModule,
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyAqPjAkJcXT-jKqDFBTOhSPZhwqU2XCfO0"
     })

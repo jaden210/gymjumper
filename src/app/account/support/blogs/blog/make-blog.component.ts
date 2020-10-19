@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Observable } from 'rxjs';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { SupportService } from '../../support.service';
 import { BlogPhotoDialog } from '../../dialogs/blog-photo-upload/blog-photo-upload.component';
 import { BlogVideoDialog } from '../../dialogs/blog-video-upload/blog-video-upload.component';

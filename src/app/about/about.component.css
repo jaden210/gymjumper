@@ -40,4 +40,6 @@ mat-drawer-content {
 .block {
   padding: 12px;
   font-size: 18px;
+  max-width: 1000px;
+  margin: 48px auto;
 }

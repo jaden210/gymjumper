@@ -2,50 +2,51 @@
   <div id="register">
       <div class="image-cont">
         <div class="image"><mat-progress-bar style="position: absolute;bottom: 0px;" *ngIf="loading" mode="indeterminate"></mat-progress-bar><img class="img" src={{supportService?.gym?.logoUrl}} style="object-fit: contain !important;" onerror="src = '/assets/lost.png'" alt="Gym Jumper"></div>
-        <div style="height: 0px; width: 0px; overflow:hidden"><input type="file" id="upLogoUrl" accept=".png,.jpg,.mp4" #uploadT (change)="uploadLogoImage($event)"></div>
+        <div style="height: 0px; width: 0px; overflow:hidden"><input type="file" id="upLogoUrl" accept=".png,.jpg,.mp4" #uploadT (change)="uploadGymLogoImage($event)"></div>
         <button mat-stroked-button class="image-button" color="primary" (click)="upload()">CHANGE GYM LOGO</button>
       </div>
       <mat-form-field>
-        <input matInput [(ngModel)]="supportService?.gym.name" placeholder="gym name">
+        <input matInput [(ngModel)]="supportService.gym.name" placeholder="gym name">
       </mat-form-field>
       <mat-form-field>
-        <input matInput [(ngModel)]="supportService?.gym.street1" placeholder="street1">
+        <input matInput [(ngModel)]="supportService.gym.street1" placeholder="street1">
       </mat-form-field>
       <mat-form-field>
-        <input matInput [(ngModel)]="supportService?.gym.street2" placeholder="street2">
+        <input matInput [(ngModel)]="supportService.gym.street2" placeholder="street2">
       </mat-form-field>
       <div class="row">
         <mat-form-field>
-          <input matInput [(ngModel)]="supportService?.gym.city" placeholder="city">
+          <input matInput [(ngModel)]="supportService.gym.city" placeholder="city">
         </mat-form-field>
         <mat-form-field>
-          <input matInput [(ngModel)]="supportService?.gym.state" placeholder="state">
+          <input matInput [(ngModel)]="supportService.gym.state" placeholder="state">
         </mat-form-field>
         <mat-form-field>
-          <input matInput [(ngModel)]="supportService?.gym.zip" placeholder="zip">
+          <input matInput [(ngModel)]="supportService.gym.zip" placeholder="zip">
         </mat-form-field>
       </div>
       <div class="row vert">
+        <div class="title">Public Information</div>
+        <mat-form-field>
+          <textarea cdkTextareaAutosize matInput placeholder="information" [(ngModel)]="supportService.gym.info"></textarea>
+        </mat-form-field>
         <div class="title">Restrictions</div>
-        <mat-radio-group aria-labelledby="radio-group-label" class="radio-group"[(ngModel)]="supportService?.gym.restriction">
-          <div class="group" *ngFor="let restriction of restrictions">
-            <mat-radio-button class="radio-button" [value]="restriction">
-              {{restriction.name}}
-            </mat-radio-button>
-            <div class="expand" *ngIf="supportService?.gym?.restriction?.name == restriction.name">
-              <mat-form-field class="expand-input">
-                <input matInput type="number" step="1" [(ngModel)]="restriction.value">
-              </mat-form-field>
-              <div class="helper-text">{{restriction.helpText}}</div>
-            </div>
-          </div>
-        </mat-radio-group>
+        <mat-form-field>
+          <textarea matInput cdkTextareaAutosize placeholder="restriction information (private)" [(ngModel)]="supportService.gym.restrictionText"></textarea>
+        </mat-form-field>
+        <div class="row">
+          <mat-form-field>
+            <mat-label>Visits per month allowed</mat-label>
+            <input matInput [(ngModel)]="supportService.gym.restrictionCount" type="number" step="1">
+          </mat-form-field>
+        </div>
       </div>
       <div class="row">
         <button mat-raised-button color="accent" (click)="addGym()">SAVE</button>
         <button mat-button color="accent" (click)="cancel()">CANCEL</button>
         <button mat-button color="accent" (click)="showQr()">SHOW QR</button>
         <button mat-button color="alert" (click)="deleteGym()">DELETE GYM</button>
+        <mat-slide-toggle [(ngModel)]="supportService.gym.isActive">Is Active</mat-slide-toggle>
       </div>
   </div>
 </div>

@@ -25,10 +25,4 @@ import { UserNamePipe } from "./user-name.pipe";
   providers: []
 })
 export class SharedModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: SharedModule,
-      providers: []
-    };
-  }
 }

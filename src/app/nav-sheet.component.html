@@ -1,0 +1,56 @@
+<div id="links">
+  <img
+  src="/assets/gymJumperLogo.png"
+  class="title"
+  (click)="navRoute('home')"
+  alt="Gym Jumper"
+  style="margin-bottom: 24px;"
+/>
+  <button
+    mat-button
+    class="link"
+    (click)="navRoute('find-a-gym')"
+    routerLinkActive="tactive"
+  >
+    Map of partners
+  </button>
+  <button
+    mat-button
+    class="link"
+    (click)="navRoute('how-it-works')"
+    routerLinkActive="tactive"
+  >
+    How it works
+  </button>
+  <button
+    mat-button
+    class="link"
+    (click)="navRoute('pricing')"
+    routerLinkActive="tactive"
+  >
+    Pricing
+  </button>
+  <button
+    mat-button
+    class="link"
+    (click)="navRoute('about')"
+    routerLinkActive="tactive"
+  >
+    About
+  </button>
+  <button
+    mat-button
+    class="link"
+    (click)="navRoute('signup')"
+    routerLinkActive="tactive"
+  >
+    {{loggedInStatus}}
+  </button>
+  <button
+    mat-stroked-button
+    style="margin: 24px 0;"
+    (click)="navRoute('signup')"
+  >
+    SIGN UP
+  </button>
+</div>

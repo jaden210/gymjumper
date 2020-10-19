@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "pigeon-fly": {
+    "gym-jumper": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -18,8 +18,14 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.css", "src/app/material/theme.scss"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css",
+              "src/app/material/theme.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -62,21 +68,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "pigeon-fly:build"
+            "browserTarget": "gym-jumper:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "pigeon-fly:build:production"
+              "browserTarget": "gym-jumper:build:production"
             },
             "dev": {
-              "browserTarget": "pigeon-fly:build:dev"
+              "browserTarget": "gym-jumper:build:dev"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "pigeon-fly:build"
+            "browserTarget": "gym-jumper:build"
           }
         },
         "test": {
@@ -86,21 +92,31 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "styles": ["src/styles.css"],
+            "styles": [
+              "src/styles.css"
+            ],
             "scripts": [],
-            "assets": ["src/favicon.ico", "src/assets"]
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
     },
-    "pigeon-fly-e2e": {
+    "gym-jumper-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -108,11 +124,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "pigeon-fly:serve"
+            "devServerTarget": "gym-jumper:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "pigeon-fly:serve:production"
+              "devServerTarget": "gym-jumper:serve:production"
             }
           }
         },
@@ -120,11 +136,16 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
     }
   },
-  "defaultProject": "pigeon-fly"
+  "defaultProject": "gym-jumper",
+  "cli": {
+    "analytics": "8a55be38-c202-4b2a-9281-10e8150efd61"
+  }
 }

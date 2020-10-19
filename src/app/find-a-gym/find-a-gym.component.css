@@ -17,9 +17,16 @@ agm-map {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
 
+button#list-btn {
+  position: fixed;
+  top: 80px;
+  left: 320px;
+}
+
 input {
   flex: 1;
   height: 80%;
+  width: 100%;
   outline: none;
   border: none;
   font-size: 17px;
@@ -31,13 +38,42 @@ input {
   top: 150px;
   left: 12px;
   background: #ffffff;
-  height: 350px;
+  min-height: 350px;
+  max-height: calc(100vh - 200px);
   width: 300px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  overflow: scroll;
+}
+
+#list {
+  position: fixed;
+  top: 150px;
+  left: 12px;
+  background: #ffffff;
+  min-height: 350px;
+  max-height: calc(100vh - 200px);
+  width: 300px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: scroll;
+}
+
+.gym-block {
+  white-space: pre-line;
+  margin: 8px 0;
+  font-weight: 600;
+}
+
+.restrictions {
+  font-style: italic;
+  opacity: .54;
+  color: red;
 }
 
 #close {
@@ -50,6 +86,7 @@ input {
   max-height: 150px;
   object-fit: contain;
   padding: 12px;
+  box-sizing: border-box;
 }
 
 #banner {
@@ -58,7 +95,7 @@ input {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 56px;
+  height: 48px;
   background-color: #4285F4;
   color: #FFFFFF;
   width: 100%;
@@ -91,4 +128,17 @@ input {
   top: 45vh;
   width: 100vw;
   text-align: -webkit-center;
+}
+
+@media screen and (max-width: 400px) {
+  #search {
+    width: 60vw !important;
+  }
+  #list-btn {
+    left: 68vw !important;
+  }
+  #close {
+    left: 85vw !important;
+    top: 80px !important;
+  }
 }

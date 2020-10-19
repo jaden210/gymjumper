@@ -1,7 +1,8 @@
 import { Component, OnInit , ViewChild} from '@angular/core';
 import { map } from 'rxjs/operators';
 import { User } from '../../../app.service';
-import { MatSort, MatTableDataSource } from '@angular/material';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { SupportService } from '../support.service';
 import { Gym } from '../../account.service';
 

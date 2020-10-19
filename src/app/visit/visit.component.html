@@ -1,11 +1,21 @@
-<div id="full">
-  <div id="error">{{errorMessage}}</div>
-  <div *ngIf="user" class="user">
-    <div class="name">{{user.name}}</div>
+<div id="full" *ngIf="!complete">
+  <div *ngIf="show" class="user">
+    <div id="error">{{errorMessage}}</div>
+    <div class="gym-photo"><img id="gym-url" src={{gym?.logoUrl}} [alt]="gym?.name"></div>
     <div class="photo"><img id="photo-url" src={{user.profileUrl}}></div>
-    <div class="info">last visit: {{lastVisit?.createdAt}}</div>
+    <div class="name">{{user.name}}</div>
+    <div class="info" *ngIf="lastVisit">last visit: {{lastVisit?.createdAt.fromNow()}}</div>
+    <div class="info" *ngIf="gym.restrictionText">Gym Information: {{gym?.restrictionText}}</div>
     <div style="flex:1"></div>
-    <button mat-raised-button color="accent" (click)="admitVisit()">ENTER GYM</button>
+    <button mat-raised-button color="accent" [disabled]="!gym || restrictedAccess" (click)="admitVisit()">{{restrictedAccess ? 'You have hit your monthly quota' : 'ENTER GYM'}}</button>
     <button mat-stroked-button color="accent" (click)="dismiss()">DISMISS</button>
   </div>
+  <div *ngIf="login">
+    <sign-in></sign-in>
+  </div>
+</div>
+<div id="center" *ngIf="complete">
+  <img class="badge" src="/assets/badge.gif">
+  <h2>You're all set!</h2><br>Have a great workout. You can now close this tab.<br><br>Visit your account to see all your visits, update any info, check your billing and more.
+  <button mat-stroked-button id="bottom" color="primary" (click)="dismiss()">Visit my Account</button>
 </div>

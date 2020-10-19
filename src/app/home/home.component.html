@@ -1,33 +1,35 @@
-<div id="header-img">
-  <img id="h-img" src="/assets/gymarrow.png">
+<div id="header">
+  <img class="h-img" src="/assets/home2.jpg">
+  <div class="overlay"></div>
   <div id="header-box">
-    <div id="header-text">A workout membership<br> as motivated as you are</div>
-    <div id="header-info">A refreshing approach to those nasty gym memberships. One simple pass that will get you into multiple gyms in your community.
-      No more having to choose one gym and being trapped in contracts. This is the last gym membership you will ever want, guaranteed.</div>
-    </div>
+    <div id="header-text">Fun, fitness, freedom: </div>
+    <div id="header-info">Making fitness fun again by unlocking over twenty plus fitness options</div>
+    <button mat-raised-button class="ac-btn" [routerLink]="'/sign-up'" color="accent">Get Started for only $99/Month</button>
   </div>
+</div>
 <div class="banner">Jump into any of these locations</div>
 <div class="slider">
   <div class="slide-track">
     <div class="slide" *ngFor="let gym of gyms">
-      <img src={{gym.logoUrl}} height="100" width="250" style="object-fit:contain" alt="" />
+      <img src={{gym.logoUrl}} alt="" />
     </div>
-    <div class="slide">
-      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/2.png" height="100" width="250" alt="" />
+    <div class="slide slide2" *ngFor="let gym of gyms">
+      <img src={{gym.logoUrl}} alt="" />
     </div>
   </div>
 </div>
 <div class="banner" style="margin-bottom: 48px;">
-  <button mat-raised-button [routerLink]="'/find-a-gym'" color="accent">FIND A GYM NEAR ME</button>
+  <button mat-raised-button [routerLink]="'/find-a-gym'" color="accent">See map of our partners</button>
 </div>
 <div class="block dark">
   <div class="side">
-    <div class="b-header">Small but Mighty</div>
-    <div class="b-info">Your membership comes with a tag that gives you access to any of our partnering gyms. Throw it on your keys or keep it in your wallet, your tag is the key.</div>
+    <div class="b-header">You hold the power</div>
+    <div class="b-info">A refreshing approach to gym memberships.  You pay one membership and gain access to all of our 20+ partnering facilities. 
+      Why go to one gym when you can go to all of them?  With Gymjumper your phone is your pass!  At each of our partners you will find a Gymjumper QR code near the front desk.
+      All you do is scan the code and press "enter gym". Then BAM! you're all set! 
+      <br><br>This is the last gym membership you will ever want, guaranteed.</div>
   </div>
-  <div class="side">
-    <img class="b-img" src="/assets/rfid.jpg">
-  </div>
+  <img id="phone-img" src="/assets/homePhone.png">
 </div>
 <div class="block">
   <div class="side">
@@ -35,12 +37,12 @@
       <div class="p-title">Premier Pass</div>
       <div id="p-price">$99/mo</div>
       <button mat-raised-button id="get-started" [routerLink]="'/sign-up'" color="primary">GET STARTED</button>
-      <div class="p-info"><mat-icon>check</mat-icon>No fine print here. This is the best gym pass there is. Some gyms may have time or visit restrictions where applicable.</div>
+      <div class="p-info"><mat-icon>check</mat-icon>No fine print here. This is the best gym pass there is. Some gyms have common sense restrictions and you can see those transparently on our partner map when you're logged in.</div>
     </div>
   </div>
   <div class="side">
-    <div class="b-header">Straightforward pricing</div>
-    <div class="b-info">We hated getting locked into memberships. Even worse, writing letters and paying fees just to leave. 
-      Just pay one monthly flat rate. Free cancelations. No questions asked. 
+    <div class="b-header">Simple pricing</div>
+    <div class="b-info">Free cancelations. Month-to-month flat rate of $99. No questions asked. This pass gives you the flexibility to visit most gyms in the greater St. George area.
+      Use our partner map to find all our locations along with directions, hours, and any limitations they may have.
     </div>
 </div>

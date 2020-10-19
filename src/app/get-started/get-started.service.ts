@@ -19,7 +19,7 @@ export class GetStartedService {
   }
 
   createAuthUser(password): Promise<firebase.auth.UserCredential> {
-    return this.auth.auth
+    return this.auth
       .createUserWithEmailAndPassword(this.Email, password)
       .catch(error => {
         console.error(error);

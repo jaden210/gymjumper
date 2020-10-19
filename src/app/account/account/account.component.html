@@ -1,5 +1,20 @@
-<mat-tab-group color="accent" id="tabs" [selectedIndex]="selectedTab" (selectedTabChange)="tabChanged($event)">
+<mat-tab-group color="accent" id="tabs" [selectedIndex]="selectedTab">
   <mat-tab label="Account"> 
+    <div class="column">
+      <div class="text" *ngIf="!accountService.user?.profileUrl">We need you to update your Profile before you can start using GYMjumper. This is how we verify that 
+        you are a an active user on our platform. Head to the Profile tab and update your info.
+      </div>
+      <mat-divider *ngIf="!accountService.user?.cardToken"></mat-divider>
+      <div class="text" *ngIf="!accountService.user?.cardToken">We need an active Credit Card on file before we can let you in any gyms. Head to the Billing tab and set your Method of payment.
+      </div>
+      <mat-divider></mat-divider>
+      <div class="text">You are good to go and have full access to any of our partnering gyms. When you arrive, simply open your phones camera app and scan the GYMjumper QR code.
+        This will open your all access pass which you show to an employee. Thats it! Go explore Gyms near you.
+      </div>
+      <mat-divider></mat-divider>
+    </div>
+  </mat-tab>
+  <mat-tab label="Profile"> 
     <div class="column">
       <div class="image-cont">
         <div class="image-circle"><mat-progress-bar style="position: absolute;bottom: 0px;" *ngIf="loading" mode="indeterminate"></mat-progress-bar><img class="img" src={{accountService.user?.profileUrl}} onerror="src = '/assets/face.png'" alt="Gym Jumper"></div>
@@ -22,37 +37,17 @@
   </mat-tab>
   <mat-tab label="History"> 
     <mat-list>
-      <mat-list-item *ngFor="let visit of accountService?.visits | keyvalue">
-        <img matListAvatar src={{accountService?.visitedGyms[visit?.value.gymId]?.logoUrl}}>
-        <h3 matLine>{{accountService?.visitedGyms[visit?.value.gymId]?.name}}</h3>
-        <p matLine>
-          <span> {{visit?.value.createdAt}} </span>
-        </p>
-      </mat-list-item>
+      <div class="list" *ngFor="let visit of accountService?.visits | keyvalue">
+        <div class="img-cont"><img src={{accountService?.visitedGyms[visit?.value.gymId]?.data.logoUrl}}></div>
+        <div class="col">
+          <span class="title">{{accountService?.visitedGyms[visit?.value.gymId]?.data.name}}</span>
+          <span class="info"> {{visit?.value.createdAt}} </span>
+        </div>
+      </div>
       <div *ngIf="!accountService?.visits">No history yet... Visit a gym!</div>
     </mat-list>
   </mat-tab>
   <mat-tab label="Billing">
     <billing></billing>
-  </mat-tab>
-  <mat-tab label="My Gym" *ngIf="showGym">
-      <div class="column">
-          <div class="image-cont">
-            <div class="image-circle"><mat-progress-bar style="position: absolute;bottom: 0px;" *ngIf="loading" mode="indeterminate"></mat-progress-bar><img class="img" src={{accountService.aGym?.logoUrl}} onerror="src = '/assets/face.png'" alt="Gym Jumper"></div>
-            <div style="height: 0px; width: 0px; overflow:hidden"><input type="file" id="upLogoUrl" accept=".png,.jpg,.mp4" #uploadT (change)="uploadGymLogo($event)"></div>
-            <button mat-stroked-button [disabled]="accountServive?.aGym?.ownerId == accountService?.user?.id" class="image-button" color="primary" (click)="upload(false)">CHANGE LOGO</button>
-          </div>
-          <mat-form-field>
-            <input matInput color="primary" placeholder="gym name" [disabled]="accountServive?.aGym?.ownerId == accountService?.user?.id" [(ngModel)]="accountService.aGym.name" (change)="saveGym()">
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput color="primary" placeholder="email" [disabled]="accountServive?.aGym?.ownerId == accountService?.user?.id" [(ngModel)]="accountService.aGym.email" (change)="saveGym()">
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput color="primary" placeholder="phone" type="tel" [disabled]="accountServive?.aGym?.ownerId == accountService?.user?.id" [(ngModel)]="accountService.aGym.phone" (change)="saveGym()">
-          </mat-form-field>
-        </div>
-  </mat-tab>
-  <mat-tab label="Scanning Station" *ngIf="showGym">
   </mat-tab>
   </mat-tab-group>

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { MatDialog } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
 import { VideoDialogComponent } from "./video-dialog/video-dialog.component";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { Router } from "@angular/router";
@@ -22,8 +22,6 @@ export class AppService {
   isUser: boolean = false; // decides if a user has logged in before
   loggedInStatus: string = "Sign in"; // decides if a user is logged in
   firstTimeUser: boolean = false; // lets the system show new member dialog
-
-  removeFromInvite: boolean = false;
   toolbarShadow: boolean = true;
 
 
@@ -32,7 +30,7 @@ export class AppService {
   constructor(
     public db: AngularFirestore,
     public dialog: MatDialog,
-    private auth: AngularFireAuth,
+    public auth: AngularFireAuth,
     private router: Router,
     private map: MapsAPILoader
   ) {
@@ -48,7 +46,7 @@ export class AppService {
   /* When they put in their email address check it first */
   checkForExistingUser(email): Promise<boolean> {
     return (
-      this.auth.auth
+      this.auth
         .fetchSignInMethodsForEmail(email)
         /* If length > 0, not new else new user */
         .then(
@@ -82,7 +80,7 @@ export class AppService {
   }
 
   getGymLocations(): Observable<any> {
-    return this.db.collection('gyms').snapshotChanges().pipe(
+    return this.db.collection('gyms', ref => ref.where("isActive", "==", true)).snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {
           const data = a.payload.doc.data() as any;
