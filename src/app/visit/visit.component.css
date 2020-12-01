@@ -39,6 +39,7 @@
   padding: 12px;
   height: 100vh;
   box-sizing: border-box;
+  padding-bottom: 64px;
 }
 
 .name {

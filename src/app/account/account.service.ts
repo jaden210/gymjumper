@@ -105,6 +105,7 @@ export class User {
   cardToken: any;
   stripeInvoicesRetrievedAt?: any;
   stripeCustomerId?: any;
+  secondUserEmail?: string;
 }
 
 export class Activity {

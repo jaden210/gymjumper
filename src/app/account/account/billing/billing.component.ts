@@ -8,7 +8,7 @@ import { AccountService } from '../../account.service';
 @Component({
   selector: 'billing',
   templateUrl: './billing.component.html',
-  styleUrls: ['./billing.component.css']
+  styleUrls: ['./billing.component.scss']
 })
 export class BillingComponent implements OnInit {
 
@@ -72,7 +72,12 @@ export class BillingComponent implements OnInit {
           // the payment source to a customer
           console.log('Token acquired!');
           this.accountService.db.doc(`user/${this.accountService.user.id}`)
-          .update({cardToken:result.token}).then(result => {
+          .update(
+            { cardToken:result.token,
+              stripePlanId: this.accountService.user.stripePlanId,
+              secondUserEmail: this.accountService.user.secondUserEmail
+            }
+            ).then(result => {
             console.log('done!');
           })
         }

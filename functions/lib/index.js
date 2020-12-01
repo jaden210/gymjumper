@@ -13,7 +13,8 @@ exports.newUserCreated = functions.firestore
     const mailTransport = nodemailer.createTransport(`smtps://support@gymjumper.io:jumptoallgyms@smtp.gmail.com`);
     const mailOptions = {
         from: '"Gymjumper" <support@gymjumper.io>',
-        to: user.email
+        to: user.email,
+        bcc: 'support@gymjumper.io'
     };
     mailOptions.subject = "Welcome to Gymjumper";
     const nameArr = user.name ? user.name.split(" ") : null;
@@ -43,7 +44,7 @@ exports.newSubscription = functions.firestore
     .onUpdate((change, context) => {
     let oldCustomer = change.before.data();
     let newCustomer = change.after.data();
-    if (!oldCustomer.cardToken && newCustomer.cardToken) { // register the Customer
+    if (!oldCustomer.cardToken && newCustomer.cardToken && newCustomer.cardToken.id) { // register the Customer
         stripe.customers
             .create({
             name: newCustomer.name,
@@ -52,11 +53,12 @@ exports.newSubscription = functions.firestore
             source: newCustomer.cardToken.id,
         })
             .then(customer => {
+            const planId = newCustomer.stripePlanId == 'pro-plan' ? 'pro-plan' : 'price_1HkCwRLuioyyvGJjsdeFnh5V';
             stripe.subscriptions
                 .create({
                 customer: customer.id,
                 items: [
-                    { price: 'pro-plan' }
+                    { price: planId }
                 ]
             })
                 .then(() => console.log(`customer ${customer.id} subscribed.`), error => console.log(`error: ${error}`));

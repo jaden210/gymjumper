@@ -44,9 +44,33 @@ export class AccountComponent implements AfterViewInit {
               this.accountService.user = user;
               this.accountService.userObservable.next(user);
               this.getUserVisits(user);
+              if (!user.cardToken) this.checkForBuddyPass();
             }
           });
       } else this.accountService.logout();
+    });
+  }
+
+  private checkForBuddyPass() {
+    this.accountService.db.collection("user", ref => ref.where("secondUserEmail", "==", this.accountService.user.email)).snapshotChanges().pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as any;
+          const id = a.payload.doc.id;
+          return { ...data, id };
+        })
+      )
+    ).subscribe(users => {
+      if (users && users.length) {
+        this.accountService.db.doc(`user/${this.accountService.user.id}`)
+        .update(
+          { cardToken: users[0].id,
+            stripePlanId: 'pro-plan-plus-one',
+            secondUserEmail: users[0].email
+          }).then(result => {
+          console.log('done!');
+        });
+      }
     });
   }
 

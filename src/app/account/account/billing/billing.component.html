@@ -1,12 +1,27 @@
 <div id="billing">
   <ng-container *ngIf="!accountService.user.cardToken">
-    <div class="card mat-elevation-z8">
-      <div class="free">You are in a free version of Gymjumper. To unlock all of our best features (like going to any gym, anytime) enter your payment info below.</div>
+    <div class="card mat-elevation-z2">
+      <div class="free">You are in a free version of Gymjumper. To unlock all of our best features (like going to any gym, anytime) choose your plan and enter your payment info below.</div>
+      <span class="plan-title">Choose a plan</span>
+      <div class="plans">
+        <div class="plan" [class.selected]="accountService.user.stripePlanId == 'pro-plan'" (click)="accountService.user.stripePlanId = 'pro-plan'">
+          $99/mo
+          <div class="pt">Pro</div>
+          <div class="fp">This plan gets you into all of our partner locations</div>
+        </div>
+        <div class="plan" [class.selected]="accountService.user.stripePlanId == 'pro-plan-plus-one'"  (click)="accountService.user.stripePlanId = 'pro-plan-plus-one'">
+          $160/mo
+          <div class="pt">Pro +1</div>
+          <div class="fp">This plan gets you and 1 other person into all of our partner locations</div>
+        </div>
+      </div>
+      <div class="email" *ngIf="accountService.user.stripePlanId == 'pro-plan-plus-one'">
+        <mat-form-field>
+          <input matInput [(ngModel)]="accountService.user.secondUserEmail" required type="email" placeholder="email of joint account">
+        </mat-form-field>
+      </div>
       <button mat-raised-button color="primary" *ngIf="!loaded" (click)="load()">Enter card info</button>
       <div id="stripe" class="stripe" style="padding-bottom: 8px;">
-        <div class="card-title">
-          <span>Credit or debit card</span>
-        </div>
         <form action="/charge" method="post" id="payment-form">
           <div class="form-row">
             <div id="card-element">
@@ -14,23 +29,25 @@
             </div>
             <!-- Used to display form errors. -->
             <div id="card-errors" role="alert"></div>
-            <button mat-raised-button color="primary" style="margin:24px" *ngIf="loaded" type="submit">Sign up</button>
+            <button mat-raised-button color="primary" style="margin:24px" *ngIf="loaded" [disabled]="(accountService.user.stripePlanId == 'pro-plan-plus-one' && !accountService.user.secondUserEmail)" type="submit">Sign up for {{accountService.user.stripePlanId}}</button>
           </div>
         </form>
       </div>
     </div>
   </ng-container>
   <ng-container *ngIf="accountService.user.cardToken">
-    <div class="card mat-elevation-z8">
+    <div class="card mat-elevation-z2">
+      <div style="margin-bottom: 48px;">Your plan: {{accountService.user.stripePlanId}}<br>shared account email: {{accountService.user.secondUserEmail}}
+      </div>
       <div class="free">Thank you! Your card is on file and securely stored with Stripe for monthly billing. Click below to update or change your payment information, anytime.</div>
-      <button mat-stroked-button color="accent" (click)="load()">Update payment Method</button>
+      <button mat-stroked-button color="accent" (click)="accountService.user.cardToken = null">Update payment Method</button>
     </div>
   </ng-container>
   <div class="s-row">
     <div class="stripe-text">Payments are secured by </div>
     <div class="f-image"><img id="f-img" src="/assets/stripeName.png"></div>
   </div>
-  <div id="bh" class="card mat-elevation-z8">
+  <!-- <div id="bh" class="card mat-elevation-z8">
     <div class="bh-row">
       <div id="bh-title">Billing History</div>
       <div class="flex"></div>
@@ -45,5 +62,5 @@
     <div id="no-bh" *ngIf="!accountService.user.stripeInvoice?.data?.length">
       <mat-icon>restore</mat-icon>No billing history
     </div>
-  </div>
+  </div> -->
 </div>

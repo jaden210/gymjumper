@@ -2,9 +2,9 @@
   <div *ngIf="show" class="user">
     <div id="error">{{errorMessage}}</div>
     <div class="gym-photo"><img id="gym-url" src={{gym?.logoUrl}} [alt]="gym?.name"></div>
-    <div class="photo"><img id="photo-url" src={{user.profileUrl}}></div>
+    <div class="photo"><img id="photo-url" src={{user.profileUrl}} onerror="src = '/assets/blindfold.png';"></div>
     <div class="name">{{user.name}}</div>
-    <div class="info" *ngIf="lastVisit">last visit: {{lastVisit?.createdAt.fromNow()}}</div>
+    <div class="info" *ngIf="lastVisit">last visit: {{lastVisit?.createdAt}}</div>
     <div class="info" *ngIf="gym.restrictionText">Gym Information: {{gym?.restrictionText}}</div>
     <div style="flex:1"></div>
     <button mat-raised-button color="accent" [disabled]="!gym || restrictedAccess" (click)="admitVisit()">{{restrictedAccess ? 'You have hit your monthly quota' : 'ENTER GYM'}}</button>

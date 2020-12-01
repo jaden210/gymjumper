@@ -106,9 +106,6 @@ mat-form-field {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  max-width: 1000px;
-  margin: auto;
-  padding: 12px;
 }
 
 
@@ -143,6 +140,44 @@ mat-form-field {
 #bh-title {
   opacity: .87;
   font-size: 17px;
+}
+
+.plan-title {
+  font-size: 17px;
+  font-weight: 700;
+}
+.plans {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 12px 0;
+  .selected {
+    background-color: #b4cadc;
+  }
+}
+.plan {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 32px;
+  border: 1px solid #2b689c;
+  border-radius: 6px;
+  width: 250px;
+  max-width: 250px;
+  margin: 8px;
+  padding: 8px;
+  box-sizing: border-box;
+  color: #2b689c;
+  cursor: pointer;
+  .pt {
+    font-size: 17px;
+  }
+  .fp {
+    font-size: 15px;
+    color: #666666
+  }
 }
 
 #register {

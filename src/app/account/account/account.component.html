@@ -1,53 +1,46 @@
-<mat-tab-group color="accent" id="tabs" [selectedIndex]="selectedTab">
-  <mat-tab label="Account"> 
-    <div class="column">
-      <div class="text" *ngIf="!accountService.user?.profileUrl">We need you to update your Profile before you can start using GYMjumper. This is how we verify that 
-        you are a an active user on our platform. Head to the Profile tab and update your info.
+<div class="column">
+  <div class="image-cont">
+    <div class="image-circle"><mat-progress-bar style="position: absolute;bottom: 0px;" *ngIf="loading" mode="indeterminate"></mat-progress-bar><img class="img" src={{accountService.user?.profileUrl}} onerror="src = '/assets/face.png'" alt="Gym Jumper"></div>
+    <div style="height: 0px; width: 0px; overflow:hidden"><input type="file" id="upProfileUrl" accept=".png,.jpg,.mp4" #uploadT (change)="uploadProfileImage($event)"></div>
+    <!-- <button mat-stroked-button class="image-button" color="primary" >CHANGE PICTURE</button> -->
+  </div>
+  <button mat-stroked-button class="image-button" color="primary" *ngIf="accountService.user.isDev" routerLink="/account/support">SUPPORT</button>
+  <mat-form-field>
+    <input matInput color="primary" placeholder="profile name" [(ngModel)]="accountService.user.name" (change)="saveProfile()">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput color="primary" placeholder="phone" type="tel" [(ngModel)]="accountService.user.phone" (change)="saveProfile()">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput color="primary" readonly placeholder="email" [(ngModel)]="accountService.user.email" (change)="saveProfile()">
+  </mat-form-field>
+  <div class="section-header"><mat-icon>mail</mat-icon>&nbsp;Inbox</div>
+  <div class="text" (click)="upload(true)" *ngIf="!accountService.user?.profileUrl">Add a profile image to start using GYMjumper. This is how we verify that 
+    you are a an active user on our platform. Click here to add one now
+    <div class="action"><button mat-stroked-button (click)="upload(true)" color="primary">Add an image</button></div>
+  </div>
+  <mat-divider *ngIf="!accountService.user?.cardToken"></mat-divider>
+  <div class="text" *ngIf="!accountService.user?.cardToken">We need an active Credit Card on file before we can let you in any gyms. Scroll to Billing and set your Method of payment.
+  </div>
+  <mat-divider></mat-divider>
+  <div class="text" *ngIf="accountService.user?.cardToken">You are good to go and have full access to any of our partnering gyms. When you arrive, simply open your phones camera app and scan the GYMjumper QR code.
+    This will open your all access pass which you show to an employee. Thats it! Go explore Gyms near you.
+    <div class="action"><button mat-stroked-button color="primary" [routerLink]="'/find-a-gym'">Find a gym</button></div>
+  </div>
+  <div class="section-header"><mat-icon>payment</mat-icon>&nbsp;Billing</div>
+  <billing></billing>
+  <div class="section-header"><mat-icon>history</mat-icon>&nbsp;History</div>
+  <mat-divider></mat-divider>
+  <mat-list style="width: 100%;">
+    <div class="list" *ngFor="let visit of accountService?.visits | keyvalue">
+      <div class="img-cont"><img src={{accountService?.visitedGyms[visit?.value.gymId]?.data.logoUrl}}></div>
+      <div class="col">
+        <span class="title">{{accountService?.visitedGyms[visit?.value.gymId]?.data.name}}</span>
+        <span class="info"> {{visit?.value.createdAt}} </span>
       </div>
-      <mat-divider *ngIf="!accountService.user?.cardToken"></mat-divider>
-      <div class="text" *ngIf="!accountService.user?.cardToken">We need an active Credit Card on file before we can let you in any gyms. Head to the Billing tab and set your Method of payment.
-      </div>
-      <mat-divider></mat-divider>
-      <div class="text">You are good to go and have full access to any of our partnering gyms. When you arrive, simply open your phones camera app and scan the GYMjumper QR code.
-        This will open your all access pass which you show to an employee. Thats it! Go explore Gyms near you.
-      </div>
-      <mat-divider></mat-divider>
     </div>
-  </mat-tab>
-  <mat-tab label="Profile"> 
-    <div class="column">
-      <div class="image-cont">
-        <div class="image-circle"><mat-progress-bar style="position: absolute;bottom: 0px;" *ngIf="loading" mode="indeterminate"></mat-progress-bar><img class="img" src={{accountService.user?.profileUrl}} onerror="src = '/assets/face.png'" alt="Gym Jumper"></div>
-        <div style="height: 0px; width: 0px; overflow:hidden"><input type="file" id="upProfileUrl" accept=".png,.jpg,.mp4" #uploadT (change)="uploadProfileImage($event)"></div>
-        <button mat-stroked-button class="image-button" color="primary" (click)="upload(true)">CHANGE PICTURE</button>
-      </div>
-      <button mat-stroked-button class="image-button" color="primary" (click)="accountService.logout()">LOGOUT</button>
-      <button mat-stroked-button class="image-button" color="primary" *ngIf="accountService.user.isDev" routerLink="/account/support">SUPPORT</button>
-      <mat-form-field>
-        <input matInput color="primary" placeholder="profile name" [(ngModel)]="accountService.user.name" (change)="saveProfile()">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput color="primary" readonly placeholder="email" [(ngModel)]="accountService.user.email" (change)="saveProfile()">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput color="primary" placeholder="phone" type="tel" [(ngModel)]="accountService.user.phone" (change)="saveProfile()">
-      </mat-form-field>
-      <button mat-button id="delete-account" color="warn" (click)="deleteAccount()"><mat-icon>delete</mat-icon> DELETE ACCOUNT</button>
-    </div>
-  </mat-tab>
-  <mat-tab label="History"> 
-    <mat-list>
-      <div class="list" *ngFor="let visit of accountService?.visits | keyvalue">
-        <div class="img-cont"><img src={{accountService?.visitedGyms[visit?.value.gymId]?.data.logoUrl}}></div>
-        <div class="col">
-          <span class="title">{{accountService?.visitedGyms[visit?.value.gymId]?.data.name}}</span>
-          <span class="info"> {{visit?.value.createdAt}} </span>
-        </div>
-      </div>
-      <div *ngIf="!accountService?.visits">No history yet... Visit a gym!</div>
-    </mat-list>
-  </mat-tab>
-  <mat-tab label="Billing">
-    <billing></billing>
-  </mat-tab>
-  </mat-tab-group>
+    <div *ngIf="!accountService?.visits">No history yet... Visit a gym!</div>
+  </mat-list>
+  <button mat-stroked-button class="image-button" color="primary" (click)="accountService.logout()">LOGOUT</button>
+  <button mat-button id="delete-account" color="warn" (click)="deleteAccount()"><mat-icon>delete</mat-icon> DELETE ACCOUNT</button>
+</div>
