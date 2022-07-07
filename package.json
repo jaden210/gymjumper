@@ -31,7 +31,7 @@
     "firebase-functions": "3.11.0",
     "hammerjs": "^2.0.8",
     "jspdf": "^1.5.3",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "ngx-moment": "5.0.0",
     "rxjs": "^6.6.2",
     "zone.js": "~0.10.3"
